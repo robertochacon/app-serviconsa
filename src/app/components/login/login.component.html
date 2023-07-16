@@ -1,0 +1,46 @@
+<!-- <app-navbar></app-navbar> -->
+
+<div class="row justify-content-center">
+    <div class="col-12 fc_login">
+        <div class="">
+
+            <div class="row justify-content-center allscreen pt-5">
+
+                <div class="row justify-content-center pt-5">
+                    <div class="col-lg-8 col-md-8 col-sm-10 text-center">
+                        <img src="./assets/img/logo.png" alt="" width="300px">
+                        <br><br><b><h3>Sistema de ventas y cotizaciones</h3></b><br>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-5 col-sm-10 shadow p-4 border-radio" style="border:2px solid #2895f1;">
+                    <div class="alert alert-danger" role="alert" *ngIf="loginError">
+                        Su identificacion o su clave esta incorrecta, verifique y vuelva a intentar
+                    </div>
+                    <label for=""><h5>Identificación</h5></label>
+                    <input type="text" [(ngModel)]="identification" class="form-control shadow mb-3" maxLength="11" placeholder="Digite su identificacion">
+                    <label for=""><h5>Contraseñas</h5></label>
+                    <input type="password" [(ngModel)]="password" class="form-control shadow mb-3" maxLength="11" placeholder="Digite su clave">
+                    <button *ngIf="!loading" class="btn btn-primary btn-block btn-lg mt-3 shadow" [disabled]="identification === '' && password === ''" (click)="login()">
+                        Ingresar
+                    </button>
+                    <button *ngIf="loading" class="btn btn-primary btn-block btn-lg mt-3 shadow">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Ingresando...
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- <div class="col-7 fc">
+        <div class="">
+
+            <div class="row justify-content-center allscreen pt-5">
+
+            </div>
+
+        </div>
+    </div> -->
+</div>

@@ -1,0 +1,32 @@
+.fc_login {
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 0px;
+    /* width: 100%; */
+    height: 100vh;
+    background: url('../../../assets/img/fondo.png');
+    background-attachment: fixed;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-right: 3px solid #2895f1;
+    border-left: 3px solid #2895f1;
+}
+
+.fc {
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 0px;
+    /* width: 100%; */
+    height: 100vh;
+    /* background: url('../../../assets/img/fondo.avif'); */
+    background-attachment: fixed;
+    background-position: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.border-radio {
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
