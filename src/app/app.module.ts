@@ -13,6 +13,11 @@ import { LoginComponent } from './components/login/login.component';
 import { SubmenuComponent } from './components/submenu/submenu.component';
 import { UsersComponent } from './components/users/users.component';
 import { ModalPasswordComponent } from './components/modal-password/modal-password.component';
+import { BillsComponent } from './components/bills/bills.component';
+import { SuppliersComponent } from './components/suppliers/suppliers.component';
+import { InvoiceQuoteComponent } from './components/invoice-quote/invoice-quote.component';
+import { EmployeesComponent } from './components/employees/employees.component';
+import { EquipmentsComponent } from './components/equipments/equipments.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,11 @@ import { ModalPasswordComponent } from './components/modal-password/modal-passwo
     SubmenuComponent,
     UsersComponent,
     ModalPasswordComponent,
+    BillsComponent,
+    SuppliersComponent,
+    InvoiceQuoteComponent,
+    EmployeesComponent,
+    EquipmentsComponent,
   ],
   imports: [
     BrowserModule,
