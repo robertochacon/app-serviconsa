@@ -21,7 +21,6 @@
                 <table class="table table-hover responsive" id="listBills" style="width:100%">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>Descripcion</th>
                             <th>Total</th>
                             <th>Fecha</th>
@@ -45,7 +44,7 @@
 
         <div class="container p-5" *ngIf="action==='register'">
             <div class="row mt-2">
-                <h3>Registro de usuario</h3>
+                <h3>Registro de gasto</h3>
                 <div class="col-6 text-start">
                     <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
                 </div>
@@ -65,16 +64,13 @@
                         No se pudo completar su registro.
                     </div>
                     <h5>Información general</h5>
-                    <select class="form-control shadow mt-3" [(ngModel)]="role">
-                        <option value="seller">Vendedor/a</option>
-                        <option value="admin">Administrador</option>
+                    <select class="form-control shadow mt-3" [(ngModel)]="type">
+                        <option value="diary">Diario</option>
+                        <option value="fixed">Fijo</option>
                     </select>
-                    <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
-                    <input type="text" [(ngModel)]="range" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un rango">
-                    <input type="text" [(ngModel)]="specialty" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una especialidad">
-                    <input type="text" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
-                    <textarea name="" id="" cols="30" rows="4" [(ngModel)]="address" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una direccion"></textarea>
-                    <button *ngIf="!loading" [disabled]="name==='' || identification===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                    <input type="text" [(ngModel)]="description" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una descripcion">
+                    <input type="text" [(ngModel)]="price" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un total">
+                    <button *ngIf="!loading" [disabled]="description===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
                     </button>
                     <button *ngIf="loading" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">

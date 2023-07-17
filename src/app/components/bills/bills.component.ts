@@ -17,14 +17,9 @@ export class BillsComponent implements OnInit {
   loading = false;
   loadData = false;
   result = '';
-  name = '';
-  identification = '';
-  role = 'admin';
-  entity:any = '1';
-  range:any = '';
-  specialty:any = '';
-  phone:any = '';
-  address:any = '';
+  price = '';
+  description = '';
+  type = 'fixed';
   allBills: any[] = [];
   listBills: any[] = [];
 
@@ -40,7 +35,8 @@ export class BillsComponent implements OnInit {
     this._bills.getAllBills().subscribe((response)=>{
 
       this.allBills  = response.data;
-      this.listBills = this.allBills.filter(item => item.type === 'diary');
+      this.listBills  = response.data;
+      // this.listBills = this.allBills.filter(item => item.type === 'diary');
       // this.listAdmins = this.allBills .filter(item => item.role === 'admin');
 
       setTimeout(function(){
@@ -62,22 +58,18 @@ export class BillsComponent implements OnInit {
   }
 
   reset(){
-    this.name = '';
-    this.identification = '';
-    this.role = '';
+    this.price = '';
+    this.description = '';
+    this.type = '';
   }
   
   save(): void {
 
     this.loading = true;
     let datos = new FormData();
-    datos.append("name",this.name);
-    datos.append("identification",this.identification);
-    datos.append("range",this.range);
-    datos.append("specialty",this.specialty);
-    datos.append("phone",this.phone);
-    datos.append("address",this.address);
-    datos.append("role",this.role);
+    datos.append("description",this.description);
+    datos.append("price",this.price);
+    datos.append("type",this.type);
     // datos.append("file",this.file);
 
     this._bills.setBills(datos).subscribe((response)=>{
