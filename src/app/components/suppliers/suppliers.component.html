@@ -1,1 +1,94 @@
-<p>suppliers works!</p>
+<!-- <app-navbarinto></app-navbarinto> -->
+
+<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+
+    <app-submenu [page]="'users'"></app-submenu>
+
+    <div class="col-lg-10 col-md-10 col-sm-12">
+
+        <div class="container p-5 text-center" *ngIf="action==='list'">
+
+            <div class="mt-2 d-flex justify-content-between align-items-center">
+                <div class="">
+                    <h3>Lista de suplidores</h3>
+                </div>
+                <div class="col-lg-0 text-start">
+                    <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar suplidor</span></p>
+                </div>
+            </div>
+
+            <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
+                <table class="table table-hover responsive" id="listSuppliers" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Fecha</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let bill of listSuppliers" class="text-start">
+                            <td>{{bill.name}}</td>
+                            <td>{{bill.direction}}</td>
+                            <td>{{bill.phone}}</td>
+                            <td>{{bill.created_at | date:'dd/MM/yyyy'}}</td>
+                            <td>
+                                <button class="btn btn-danger shadow ml-1" (click)="delete(bill.id)"><i class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="container p-5" *ngIf="action==='register'">
+            <div class="row mt-2">
+                <h3>Registro de suplidor</h3>
+                <div class="col-6 text-start">
+                    <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
+                </div>
+            </div>
+            <div class="row justify-content-around allscreen">
+
+                <div class="col-lg-5 col-md-5 col-sm-10 text-center">
+                    <img src="../../../assets/img/add_documents.svg" alt="" width="60%">
+                    <h2></h2>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12 shadow text-center border-radio pt-3">
+                    <div class="alert alert-success" role="alert" *ngIf="result === 'ok'">
+                        Registro completado.
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="result === 'fail'">
+                        No se pudo completar su registro.
+                    </div>
+                    <h5>Información general</h5>
+                    <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
+                    <input type="text" [(ngModel)]="direction" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una direccion">
+                    <input type="text" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
+                    <button *ngIf="!loading" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                        Registrar
+                    </button>
+                    <button *ngIf="loading" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Registrando...
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
+    <div>
+        <img class="mb-3" src="../../../assets/img/devices.svg" width="80%" alt="">
+        <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
+        <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
+    </div>
+</div>
