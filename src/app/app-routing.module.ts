@@ -7,6 +7,7 @@ import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { EquipmentsComponent } from './components/equipments/equipments.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { ServicesComponent } from './components/services/services.component';
+import { InvoiceQuoteComponent } from './components/invoice-quote/invoice-quote.component';
 import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'equipment_rental', component: EquipmentsComponent},
   {path: 'employees', component: EmployeesComponent},
   {path: 'services', component: ServicesComponent},
+  {path: 'invoice_quote', component: InvoiceQuoteComponent},
   {path: 'users', component: UsersComponent},
   {path: '**', redirectTo: '/'},
 ];

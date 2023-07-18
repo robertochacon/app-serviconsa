@@ -1,1 +1,216 @@
-<p>invoice-quote works!</p>
+<!-- <app-navbarinto></app-navbarinto> -->
+
+<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+
+    <app-submenu [page]="'users'"></app-submenu>
+
+    <div class="col-lg-10 col-md-10 col-sm-12">
+
+        <div class="container p-5 text-center" *ngIf="action==='list'">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" id="admins-tab" data-toggle="tab" href="#admins" role="tab" aria-controls="admins" aria-selected="false">Cotizaciónes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="seller-tab" data-toggle="tab" href="#seller" role="tab" aria-controls="seller" aria-selected="false">Facturas</a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="admins" role="tabpanel" aria-labelledby="admins-tab">
+
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <div class="">
+                            <h3>Lista de cotización</h3>
+                        </div>
+                        <div class="col-lg-0 text-start">
+                            <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar de cotización</span></p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
+                        <table class="table table-hover responsive" id="listQuotes" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Identificacion</th>
+                                    <th>Nombre</th>
+                                    <th>Role</th>
+                                    <th>Fecha</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of listQuotes" class="text-start">
+                                    <td><i class="fa-solid fa-user mr-2 text-black"></i></td>
+                                    <td>{{user.identification}}</td>
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.role}}</td>
+                                    <td>{{user.created_at | date:'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <button class="btn btn-info shadow" (click)="''"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-warning shadow ml-1" (click)="''"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="btn btn-danger shadow ml-1" (click)="delete(user.id)"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="tab-pane fade" id="seller" role="tabpanel" aria-labelledby="seller-tab">
+
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <div class="">
+                            <h3>Lista de facturas</h3>
+                        </div>
+                        <div class="col-lg-0 text-start">
+                            <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar factura</span></p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
+                        <table class="table table-hover responsive" id="listInvoices" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Identificacion</th>
+                                    <th>Nombre</th>
+                                    <th>Role</th>
+                                    <th>Fecha</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of listInvoices" class="text-start">
+                                    <td><i class="fa-solid fa-user mr-2 text-black"></i></td>
+                                    <td>{{user.identification}}</td>
+                                    <td>{{user.name}}</td>
+                                    <td>{{user.role}}</td>
+                                    <td>{{user.created_at | date:'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <button class="btn btn-info shadow" (click)="''"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-warning shadow ml-1" (click)="''"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="btn btn-danger shadow ml-1" (click)="delete(user.id)"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container p-5" *ngIf="action==='register'">
+            <div class="row mt-2">
+                <h3>Registro de cotización o factura</h3>
+                <div class="col-6 text-start">
+                    <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
+                </div>
+            </div>
+            <div class="row justify-content-around allscreen">
+
+                <div class="col-lg-4 col-md-4 col-sm-10 text-center">
+
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <div class="">
+                            <h3 class="text-secondary">Seleccione un servicios</h3>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
+                        <table class="table table-hover responsive" id="listServices" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Tarifa</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let service of listServices" class="text-start">
+                                    <td>{{service.name}}</td>
+                                    <td>{{service.price}}</td>
+                                    <td>
+                                        <button class="btn btn-success shadow ml-1" (click)="selectedService(service)"><i class="fa-solid fa-hand-point-up"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-8 col-md-8 col-sm-12 shadow text-center border-radio pt-3">
+                    <div class="alert alert-success" role="alert" *ngIf="result === 'ok'">
+                        Registro completado.
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="result === 'fail'">
+                        No se pudo completar su registro.
+                    </div>
+                    <h5>Información general</h5>
+
+                    <input type="text" [(ngModel)]="client" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre de cliente">
+                    <input type="text" disabled="true" [(ngModel)]="attended" class="form-control shadow mt-3" maxLength="50" placeholder="Atendido por">
+                    <div class="row">
+                        <div class="col-6 p-2">
+                            <input type="number" [(ngModel)]="taxes" class="form-control shadow mt-3" maxLength="50" placeholder="Impuestos">
+                        </div>
+                        <div class="col-6 p-2">
+                            <input type="number" [(ngModel)]="discount" class="form-control shadow mt-3" maxLength="50" placeholder="Descuento">
+                        </div>
+                    </div>
+                    <div>
+                        <table class="table table-hover responsive" id="listServices" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Descripcion</th>
+                                    <th>Tarifa</th>
+                                    <th>Cantidad</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listServicesSelected" class="text-start">
+                                    <td>{{item.name}}</td>
+                                    <td>{{item.description}}</td>
+                                    <td>{{item.price}}</td>
+                                    <td>{{item.amount}}</td>
+                                    <td>{{item.total}}</td>
+                                    <td>
+                                        <button class="btn btn-danger shadow ml-1"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <textarea cols="30" rows="4" [(ngModel)]="observation" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una observacion"></textarea>
+                    <textarea cols="30" rows="4" [(ngModel)]="terms" class="form-control shadow mt-3" maxLength="50" placeholder="Digite los terminos"></textarea>
+                    <button *ngIf="!loading" [disabled]="client===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                        Registrar
+                    </button>
+                    <button *ngIf="loading" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Registrando...
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
+    <div>
+        <img class="mb-3" src="../../../assets/img/devices.svg" width="80%" alt="">
+        <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
+        <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
+    </div>
+</div>
