@@ -23,7 +23,7 @@ export class InvoiceQuoteComponent implements OnInit {
   discount = '';
   observation = '';
   terms = '';
-  type = '';
+  type = 'quote';
   allInvoiceQuote: any[] = [];
   listServices: any[] = [];
   listServicesSelected: any = [];
