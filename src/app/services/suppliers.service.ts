@@ -25,8 +25,8 @@ export class SuppliersService {
   }
 
   deleteSuppliers(id: number): Observable<any>{
-    const url = this.url+'/delete/'+id;
-    return this.http.post(url, id);
+    const url = this.url+'/'+id;
+    return this.http.delete(url);
   }
 
 }

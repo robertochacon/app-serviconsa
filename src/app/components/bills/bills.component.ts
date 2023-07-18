@@ -83,6 +83,7 @@ export class BillsComponent implements OnInit {
       });
       this.reset();
       this.getAllBills();
+      this.action = 'list';
     },error => {
       Swal.fire({
         position: 'center',
@@ -99,7 +100,7 @@ export class BillsComponent implements OnInit {
   
   delete(id: any): void {
     Swal.fire({
-      title: 'Deseas eliminar este usuario?',
+      title: 'Deseas eliminar este gasto?',
       // text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,

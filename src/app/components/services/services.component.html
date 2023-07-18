@@ -10,34 +10,32 @@
 
             <div class="mt-2 d-flex justify-content-between align-items-center">
                 <div class="">
-                    <h3>Lista de equipos rentados</h3>
+                    <h3>Lista de servicios</h3>
                 </div>
                 <div class="col-lg-0 text-start">
-                    <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar equipo a rentar</span></p>
+                    <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar servicio</span></p>
                 </div>
             </div>
 
             <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
-                <table class="table table-hover responsive" id="listEquipmentRental" style="width:100%">
+                <table class="table table-hover responsive" id="listServices" style="width:100%">
                     <thead>
                         <tr>
                             <th>Nombre</th>
+                            <th>Descripcion</th>
                             <th>Tarifa</th>
-                            <th>Proveedor</th>
-                            <th>Telefono</th>
                             <th>Fecha</th>
                             <th>Accion</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let equipment_rental of listEquipmentRental" class="text-start">
-                            <td>{{equipment_rental.name}}</td>
-                            <td>{{equipment_rental.price}}</td>
-                            <td>{{equipment_rental.provider}}</td>
-                            <td>{{equipment_rental.phone}}</td>
-                            <td>{{equipment_rental.created_at | date:'dd/MM/yyyy'}}</td>
+                        <tr *ngFor="let service of listServices" class="text-start">
+                            <td>{{service.name}}</td>
+                            <td>{{service.description}}</td>
+                            <td>{{service.price}}</td>
+                            <td>{{service.created_at | date:'dd/MM/yyyy'}}</td>
                             <td>
-                                <button class="btn btn-danger shadow ml-1" (click)="delete(equipment_rental.id)"><i class="fa-solid fa-trash"></i></button>
+                                <button class="btn btn-danger shadow ml-1" (click)="delete(service.id)"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -48,7 +46,7 @@
 
         <div class="container p-5" *ngIf="action==='register'">
             <div class="row mt-2">
-                <h3>Registro de renta de equipo</h3>
+                <h3>Registro de servicio</h3>
                 <div class="col-6 text-start">
                     <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
                 </div>
@@ -68,14 +66,9 @@
                         No se pudo completar su registro.
                     </div>
                     <h5>Información general</h5>
-                    <!-- <select class="form-control shadow mt-3" [(ngModel)]="type">
-                        <option value="diary">Diario</option>
-                        <option value="fixed">Fijo</option>
-                    </select> -->
                     <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
-                    <input type="number" [(ngModel)]="price" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un precio">
-                    <input type="text" [(ngModel)]="provider" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un proveedor">
-                    <input type="text" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
+                    <input type="text" [(ngModel)]="description" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un descripcion">
+                    <input type="number" [(ngModel)]="price" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una tarifa">
                     <button *ngIf="!loading" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
                     </button>

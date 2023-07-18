@@ -6,25 +6,25 @@ import { HelperService } from './helper.service';
 @Injectable({
   providedIn: 'root'
 })
-export class BillsService {
+export class ServicesService {
 
   url: string = '';
 
   constructor(private http: HttpClient, private helper: HelperService) { 
-    this.url =  helper.getUrl('bills');
+    this.url =  helper.getUrl('services');
   }
 
-  getAllBills(): Observable<any>{
+  getAllServices(): Observable<any>{
     const url = this.url;
     return this.http.get(url);
   }
 
-  setBills(json: any): Observable<any>{
+  setServices(json: any): Observable<any>{
     const url = this.url;
     return this.http.post(url, json);
   }
 
-  deleteBills(id: number): Observable<any>{
+  deleteServices(id: number): Observable<any>{
     const url = this.url+'/'+id;
     return this.http.delete(url);
   }

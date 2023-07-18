@@ -18,6 +18,7 @@ import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { InvoiceQuoteComponent } from './components/invoice-quote/invoice-quote.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { EquipmentsComponent } from './components/equipments/equipments.component';
+import { ServicesComponent } from './components/services/services.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { EquipmentsComponent } from './components/equipments/equipments.componen
     InvoiceQuoteComponent,
     EmployeesComponent,
     EquipmentsComponent,
+    ServicesComponent,
   ],
   imports: [
     BrowserModule,

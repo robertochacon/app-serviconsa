@@ -1,42 +1,41 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { EquipmentsService } from 'src/app/services/equipments.service';
+import { ServicesService } from 'src/app/services/services.service';
 import Swal from 'sweetalert2'
 declare const $: any;
 
 @Component({
-  selector: 'app-equipments',
-  templateUrl: './equipments.component.html',
-  styleUrls: ['./equipments.component.css']
+  selector: 'app-services',
+  templateUrl: './services.component.html',
+  styleUrls: ['./services.component.css']
 })
-export class EquipmentsComponent implements OnInit {
+export class ServicesComponent implements OnInit {
 
   step = 1;
   action = 'list';
   loading = false;
   loadData = false;
   result = '';
-  price = '';
+  description = '';
   name = '';
-  provider = '';
-  phone = '';
-  listEquipmentRental: any[] = [];
+  price = '';
+  listServices: any[] = [];
 
-  constructor(private _equipment_rental: EquipmentsService) { }
+  constructor(private _services: ServicesService) { }
 
   ngOnInit(): void {
-    this.getAllEquipmentRental();
+    this.getAllServices();
   }
 
-  getAllEquipmentRental(){
+  getAllServices(){
     this.loading = true;
 
-    this._equipment_rental.getAllEquipmentRental().subscribe((response)=>{
+    this._services.getAllServices().subscribe((response)=>{
 
-      this.listEquipmentRental  = response.data;
+      this.listServices  = response.data;
 
       setTimeout(function(){
-        $('#listEquipmentRental').DataTable();
+        $('#listServices').DataTable();
       },100);
       this.loading = false;
       
@@ -49,15 +48,14 @@ export class EquipmentsComponent implements OnInit {
 
   reloadDataTable(){
     setTimeout(function(){
-      $('#listEquipmentRental').DataTable();
+      $('#listServices').DataTable();
     },100);
   }
 
   reset(){
     this.name = '';
+    this.description = '';
     this.price = '';
-    this.provider = '';
-    this.phone = '';
   }
   
   save(): void {
@@ -65,12 +63,10 @@ export class EquipmentsComponent implements OnInit {
     this.loading = true;
     let datos = new FormData();
     datos.append("name",this.name);
-    datos.append("provider",this.provider);
+    datos.append("description",this.description);
     datos.append("price",this.price);
-    datos.append("phone",this.phone);
-    // datos.append("file",this.file);
 
-    this._equipment_rental.setEquipmentRental(datos).subscribe((response)=>{
+    this._services.setServices(datos).subscribe((response)=>{
       this.loading = false;
       Swal.fire({
         position: 'center',
@@ -80,7 +76,7 @@ export class EquipmentsComponent implements OnInit {
         timer: 2000
       });
       this.reset();
-      this.getAllEquipmentRental();
+      this.getAllServices();
       this.action = 'list';
     },error => {
       Swal.fire({
@@ -98,7 +94,7 @@ export class EquipmentsComponent implements OnInit {
   
   delete(id: any): void {
     Swal.fire({
-      title: 'Deseas eliminar este equipo rentado?',
+      title: 'Deseas eliminar este empleado?',
       // text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
@@ -109,7 +105,7 @@ export class EquipmentsComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
 
-      this._equipment_rental.deleteEquipmentRental(id).subscribe((response)=>{
+      this._services.deleteServices(id).subscribe((response)=>{
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -117,7 +113,7 @@ export class EquipmentsComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
-        this.getAllEquipmentRental();
+        this.getAllServices();
       },error => {
         Swal.fire({
           position: 'center',
