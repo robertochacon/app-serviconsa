@@ -19,11 +19,12 @@ export class InvoiceQuoteComponent implements OnInit {
   result = '';
   client = '';
   attended = '';
-  taxes = '';
-  discount = '';
+  taxes:any = 0;
+  discount:any = 0;
   observation = '';
   terms = '';
   total: any = 0;
+  totalpartial: any = 0;
   type = 'quote';
   details:any;
   allInvoiceQuote: any[] = [];
@@ -178,6 +179,7 @@ export class InvoiceQuoteComponent implements OnInit {
     service.amount = 1;
     service.total = service.price;
     this.total += service.total;
+    this.totalpartial = this.total;
     this.listServicesSelected.push(service);
   }
 
@@ -192,8 +194,26 @@ export class InvoiceQuoteComponent implements OnInit {
     let amount: any = prompt("Cantidad");
     this.listServicesSelected[index].amount = amount;
     this.listServicesSelected[index].total = this.listServicesSelected[index].price * this.listServicesSelected[index].amount;
-    this.total = (this.total + this.listServicesSelected[index].total);
-    console.log(this.listServicesSelected[index]);
+    this.total = (this.total + this.listServicesSelected[index].total) -  this.listServicesSelected[index].price;
+    this.totalpartial = this.total;
+  }
+
+  taxesChange(){
+    this.total=this.totalpartial
+    if(this.taxes!=0){
+      this.total=(this.total+this.taxes)
+    }else{
+      this.total=this.totalpartial
+    }
+  }
+
+  discountChange(){
+    this.total=this.totalpartial
+    if(this.discount!=0){
+      this.total=(this.total-this.discount)+this.taxes
+    }else{
+      this.total=this.totalpartial
+    }
   }
 
 }

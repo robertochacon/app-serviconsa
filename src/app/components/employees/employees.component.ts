@@ -19,6 +19,7 @@ export class EmployeesComponent implements OnInit {
   address = '';
   name = '';
   phone = '';
+  details:any;
   listEmployees: any[] = [];
 
   constructor(private _employees: EmployeesService) { }
