@@ -1,12 +1,12 @@
 <!-- <app-navbarinto></app-navbarinto> -->
 
-<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+<div class="row justify-content-center without-borders">
 
-    <app-submenu [page]="'invoice-quote'"></app-submenu>
+    <app-submenu class="no-print" [page]="'invoice-quote'"></app-submenu>
 
     <div class="col-lg-10 col-md-10 col-sm-12">
 
-        <div class="container p-5 text-center" *ngIf="action==='list'">
+        <div class="container p-5 text-center no-print" *ngIf="action==='list'">
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -104,7 +104,7 @@
 
         </div>
 
-        <div class="container p-5" *ngIf="action==='register'">
+        <div class="container p-5 no-print" *ngIf="action==='register'">
             <div class="row mt-2">
                 <h3>Registro de cotización o factura</h3>
                 <div class="col-6 text-start">
@@ -206,7 +206,6 @@
     </div>
 </div>
 
-
 <!-- Modal details -->
 <div class="modal fade" id="details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -230,30 +229,165 @@
                     </div>
                     <div class="col-4 text-end">
                         <h5 *ngIf="details?.type=='quote'">PRESUPUESTO Y O COTIZACION</h5>
-                        <h5 *ngIf="details?.type=='invoice'">FACTURA</h5>
+                        <h5 *ngIf="details?.type=='invoice'">FACTURACIÓN</h5>
                         <h5>Fecha: {{ details?.created_at | date:'dd/MM/yyyy' }}</h5>
                         <h5>Total: {{ details?.total | currency: 'USD' | lowercase }}</h5>
                     </div>
                 </div>
 
-                <div class="row justify-content-space-between">
-                    <div class="col-12 bg-primary pt-2">
-                        <h4 class="text-white"><b>Cliente:</b>: {{ details?.client }}</h4>
+                <div class="row justify-content-space-between mt-3">
+                    <div class="col-12">
+                        <h5 class="text-white bg-primary p-2"><b>Cliente:</b> {{ details?.client }}</h5>
+                    </div>
+                </div>
+
+                <table class="table table-striped table-hover responsive mt-3" id="listInvoices" style="width:100%">
+                    <thead class="bg-secondary text-white">
+                        <tr>
+                            <th>Nombre</th>
+                            <!-- <th>Descripcion</th> -->
+                            <th>Tarifa</th>
+                            <th>Cant.</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of details?.items" class="text-start">
+                            <td>
+                                <b>{{item.name}}</b>
+                                <br> {{item.description}}
+                            </td>
+                            <!-- <td>{{item.description}}</td> -->
+                            <td>{{item.price | currency: 'USD' | lowercase}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{item.total | currency: 'USD' | lowercase}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="row justify-content-space-between mt-3">
+                    <div class="col-12 text-end">
+                        <h5>TOTAL PARCIAL: {{ details?.total+details?.discount | currency: 'USD' | lowercase }}</h5>
+                        <h5>DESCUENTO: {{ details?.discount | currency: 'USD' | lowercase }}</h5>
+                        <h5>TOTAL: {{ details?.total | currency: 'USD' | lowercase }}</h5>
+                    </div>
+                </div>
+
+                <div class="row justify-content-space-between mt-3">
+                    <div class="col-5">
+                        <h5><b>Observación:</b>
+                            <hr>
+                        </h5>
+                        <h6>{{ details?.observation }}</h6>
+                    </div>
+                    <div class="col-5">
+                        <h5><b>Terminos:</b>
+                            <hr>
+                        </h5>
+                        <h6>{{ details?.terms }}</h6>
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer ">
+                <button type="button " class="btn btn-secondary" data-bs-dismiss="modal" (click)="print()">Imprimir</button>
                 <button type="button " class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
-    <div>
-        <img class="mb-3" src="../../../assets/img/devices.svg" width="80%" alt="">
-        <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
-        <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
+<!-- Vista de impresion -->
+<div id="print">
+
+    <div class="row justify-content-space-between">
+        <div class="col-3">
+            <img class="mb-3" src="./assets/img/logo.png" width="200" alt="">
+        </div>
+        <div class="col-5 text-center">
+            <h1>SERVICONSA</h1>
+            <h5>Servicios de Concretos Santamaria</h5>
+            <h5>C/ Central #6, Sector Libertad</h5>
+            <h5>Villa Altagracia, R.D.</h5>
+            <h5>Tel.: 849-851-7880</h5>
+        </div>
+        <div class="col-4 text-end">
+            <h5 *ngIf="details?.type=='quote'">PRESUPUESTO Y O COTIZACION</h5>
+            <h5 *ngIf="details?.type=='invoice'">FACTURACIÓN</h5>
+            <h5>Fecha: {{ details?.created_at | date:'dd/MM/yyyy' }}</h5>
+            <h5>Total: {{ details?.total | currency: 'USD' | lowercase }}</h5>
+        </div>
     </div>
+
+    <div class="row justify-content-space-between mt-3">
+        <div class="col-12">
+            <h5 class="text-white bg-primary p-2"><b>Cliente:</b> {{ details?.client }}</h5>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover responsive mt-3" id="listInvoices" style="width:100%">
+        <thead class="bg-secondary text-white">
+            <tr>
+                <th>Nombre</th>
+                <!-- <th>Descripcion</th> -->
+                <th>Tarifa</th>
+                <th>Cant.</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of details?.items" class="text-start">
+                <td>
+                    <b>{{item.name}}</b>
+                    <br> {{item.description}}
+                </td>
+                <!-- <td>{{item.description}}</td> -->
+                <td>{{item.price | currency: 'USD' | lowercase}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.total | currency: 'USD' | lowercase}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row justify-content-space-between mt-3">
+        <div class="col-12 text-end">
+            <h5>TOTAL PARCIAL: {{ details?.total+details?.discount | currency: 'USD' | lowercase }}</h5>
+            <h5>DESCUENTO: {{ details?.discount | currency: 'USD' | lowercase }}</h5>
+            <h5>TOTAL: {{ details?.total | currency: 'USD' | lowercase }}</h5>
+        </div>
+    </div>
+
+    <div class="row justify-content-space-between mt-3">
+        <div class="col-5">
+            <h5><b>Observación:</b>
+                <hr>
+            </h5>
+            <h6>{{ details?.observation }}</h6>
+        </div>
+        <div class="col-5">
+            <h5><b>Terminos:</b>
+                <hr>
+            </h5>
+            <h6>{{ details?.terms }}</h6>
+        </div>
+    </div>
+
+    <div class="row justify-content-space-between mt-5">
+        <div class="col-12 text-center">
+            <h4>Cuentas de banco</h4>
+        </div>
+        <div class="col-6 text-end">
+            <img class="mb-3" src="./assets/img/banreservas.png" width="150" alt="">
+            <br><b>9604094056</b>
+        </div>
+        <div class="col-6 text-start">
+            <img class="mb-3" src="./assets/img/bhd.png" width="100" alt="">
+            <br><b>10303950010</b>
+        </div>
+        <div class="col-12 text-center">
+            <h6 class="text-white bg-primary p-2">Gracias por la confianza</h6>
+        </div>
+    </div>
+
+
 </div>

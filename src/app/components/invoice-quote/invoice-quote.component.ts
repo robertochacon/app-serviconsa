@@ -181,4 +181,11 @@ export class InvoiceQuoteComponent implements OnInit {
     this.listServicesSelected.push(service);
   }
 
+  print():void{
+    window.focus();
+    setTimeout(() => {
+      window.print();
+    }, 1000);
+  }
+
 }
