@@ -23,7 +23,9 @@ export class InvoiceQuoteComponent implements OnInit {
   discount = '';
   observation = '';
   terms = '';
+  total: any = 0;
   type = 'quote';
+  details:any;
   allInvoiceQuote: any[] = [];
   listServices: any[] = [];
   listServicesSelected: any = [];
@@ -33,6 +35,7 @@ export class InvoiceQuoteComponent implements OnInit {
   constructor(private _invoice_quote: InvoiceQuoteService, private _services: ServicesService) { }
 
   ngOnInit(): void {
+    this.attended = localStorage.getItem('name') || '';
     this.getAllInvoiceQuote();
     this.getAllServices();
   }
@@ -43,8 +46,8 @@ export class InvoiceQuoteComponent implements OnInit {
     this._invoice_quote.getAllInvoiceQuote().subscribe((response)=>{
 
       this.allInvoiceQuote  = response.data;
-      this.listInvoices = this.allInvoiceQuote .filter(item => item.role === 'invoice');
-      this.listQuotes = this.allInvoiceQuote .filter(item => item.role === 'quote');
+      this.listInvoices = this.allInvoiceQuote .filter(item => item.type === 'invoice');
+      this.listQuotes = this.allInvoiceQuote .filter(item => item.type === 'quote');
 
       setTimeout(function(){
         $('#listInvoices').DataTable();
@@ -91,7 +94,6 @@ export class InvoiceQuoteComponent implements OnInit {
     this.discount = '';
     this.observation = '';
     this.terms = '';
-    this.type = '';
   }
   
   save(): void {
@@ -105,7 +107,8 @@ export class InvoiceQuoteComponent implements OnInit {
     datos.append("observation",this.observation);
     datos.append("terms",this.terms);
     datos.append("type",this.type);
-    datos.append("items", this.listServicesSelected);
+    datos.append("total",this.total);
+    datos.append("items", JSON.stringify(this.listServicesSelected));
 
     this._invoice_quote.setInvoiceQuote(datos).subscribe((response)=>{
       this.loading = false;
@@ -118,6 +121,7 @@ export class InvoiceQuoteComponent implements OnInit {
       });
       this.reset();
       this.getAllInvoiceQuote();
+      this.listServicesSelected = [];
     },error => {
       Swal.fire({
         position: 'center',
@@ -173,6 +177,7 @@ export class InvoiceQuoteComponent implements OnInit {
   selectedService(service:any){
     service.amount = 1;
     service.total = service.price;
+    this.total += service.total;
     this.listServicesSelected.push(service);
   }
 

@@ -2,7 +2,7 @@
 
 <div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
 
-    <app-submenu [page]="'users'"></app-submenu>
+    <app-submenu [page]="'invoice-quote'"></app-submenu>
 
     <div class="col-lg-10 col-md-10 col-sm-12">
 
@@ -10,7 +10,7 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link" id="admins-tab" data-toggle="tab" href="#admins" role="tab" aria-controls="admins" aria-selected="false">Cotizaciónes</a>
+                    <a class="nav-link active" id="admins-tab" data-toggle="tab" href="#admins" role="tab" aria-controls="admins" aria-selected="false">Cotizaciónes</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="seller-tab" data-toggle="tab" href="#seller" role="tab" aria-controls="seller" aria-selected="false">Facturas</a>
@@ -25,7 +25,7 @@
                             <h3>Lista de cotización</h3>
                         </div>
                         <div class="col-lg-0 text-start">
-                            <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar de cotización</span></p>
+                            <p class="btn btn-primary mt-1" (click)="action='register';type='quote'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar de cotización</span></p>
                         </div>
                     </div>
 
@@ -33,25 +33,25 @@
                         <table class="table table-hover responsive" id="listQuotes" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th>Identificacion</th>
-                                    <th>Nombre</th>
-                                    <th>Role</th>
+                                    <th>Cliente</th>
+                                    <th>Atendido</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
                                     <th>Fecha</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let user of listQuotes" class="text-start">
-                                    <td><i class="fa-solid fa-user mr-2 text-black"></i></td>
-                                    <td>{{user.identification}}</td>
-                                    <td>{{user.name}}</td>
-                                    <td>{{user.role}}</td>
-                                    <td>{{user.created_at | date:'dd/MM/yyyy'}}</td>
+                                <tr *ngFor="let quote of listQuotes" class="text-start">
+                                    <td>{{quote.client}}</td>
+                                    <td>{{quote.attended}}</td>
+                                    <td>{{quote.total | currency: 'USD' | lowercase}}</td>
+                                    <td>{{quote.status}}</td>
+                                    <td>{{quote.created_at | date:'dd/MM/yyyy'}}</td>
                                     <td>
                                         <button class="btn btn-info shadow" (click)="''"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button class="btn btn-warning shadow ml-1" (click)="''"><i class="fa-solid fa-eye"></i></button>
-                                        <button class="btn btn-danger shadow ml-1" (click)="delete(user.id)"><i class="fa-solid fa-trash"></i></button>
+                                        <button class="btn btn-warning shadow ml-1" (click)="details=quote" data-bs-toggle="modal" data-bs-target="#details"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="btn btn-danger shadow ml-1" (click)="delete(quote.id)"><i class="fa-solid fa-trash"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -66,7 +66,7 @@
                             <h3>Lista de facturas</h3>
                         </div>
                         <div class="col-lg-0 text-start">
-                            <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar factura</span></p>
+                            <p class="btn btn-primary mt-1" (click)="action='register';type='invoice'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar factura</span></p>
                         </div>
                     </div>
 
@@ -74,25 +74,25 @@
                         <table class="table table-hover responsive" id="listInvoices" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th>Identificacion</th>
-                                    <th>Nombre</th>
-                                    <th>Role</th>
+                                    <th>Cliente</th>
+                                    <th>Atendido por</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
                                     <th>Fecha</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let user of listInvoices" class="text-start">
-                                    <td><i class="fa-solid fa-user mr-2 text-black"></i></td>
-                                    <td>{{user.identification}}</td>
-                                    <td>{{user.name}}</td>
-                                    <td>{{user.role}}</td>
-                                    <td>{{user.created_at | date:'dd/MM/yyyy'}}</td>
+                                <tr *ngFor="let invoice of listInvoices" class="text-start">
+                                    <td>{{invoice.client}}</td>
+                                    <td>{{invoice.attended}}</td>
+                                    <td>{{invoice.total | currency: 'USD' | lowercase}}</td>
+                                    <td>{{invoice.status}}</td>
+                                    <td>{{invoice.created_at | date:'dd/MM/yyyy'}}</td>
                                     <td>
                                         <button class="btn btn-info shadow" (click)="''"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button class="btn btn-warning shadow ml-1" (click)="''"><i class="fa-solid fa-eye"></i></button>
-                                        <button class="btn btn-danger shadow ml-1" (click)="delete(user.id)"><i class="fa-solid fa-trash"></i></button>
+                                        <button class="btn btn-warning shadow ml-1" (click)="details=invoice" data-bs-toggle="modal" data-bs-target="#details"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="btn btn-danger shadow ml-1" (click)="delete(invoice.id)"><i class="fa-solid fa-trash"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -125,7 +125,7 @@
                         <table class="table table-hover responsive" id="listServices" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
+                                    <th>Atendido por</th>
                                     <th>Tarifa</th>
                                     <th>Accion</th>
                                 </tr>
@@ -206,6 +206,49 @@
     </div>
 </div>
 
+
+<!-- Modal details -->
+<div class="modal fade" id="details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-dark" id="exampleModalLabel"><b>Detalles</b></h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-start">
+
+                <div class="row justify-content-space-between">
+                    <div class="col-3">
+                        <img class="mb-3" src="./assets/img/logo.png" width="200" alt="">
+                    </div>
+                    <div class="col-5 text-center">
+                        <h1>SERVICONSA</h1>
+                        <h5>Servicios de Concretos Santamaria</h5>
+                        <h5>C/ Central #6, Sector Libertad</h5>
+                        <h5>Villa Altagracia, R.D.</h5>
+                        <h5>Tel.: 849-851-7880</h5>
+                    </div>
+                    <div class="col-4 text-end">
+                        <h5 *ngIf="details?.type=='quote'">PRESUPUESTO Y O COTIZACION</h5>
+                        <h5 *ngIf="details?.type=='invoice'">FACTURA</h5>
+                        <h5>Fecha: {{ details?.created_at | date:'dd/MM/yyyy' }}</h5>
+                        <h5>Total: {{ details?.total | currency: 'USD' | lowercase }}</h5>
+                    </div>
+                </div>
+
+                <div class="row justify-content-space-between">
+                    <div class="col-12 bg-primary pt-2">
+                        <h4 class="text-white"><b>Cliente:</b>: {{ details?.client }}</h4>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
     <div>
