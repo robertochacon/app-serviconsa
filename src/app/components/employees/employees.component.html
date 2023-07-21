@@ -99,10 +99,14 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title text-dark" id="exampleModalLabel"><b>Detalles</b></h3>
+                <h3 class="modal-title text-dark" id="exampleModalLabel"><b>Detalles de {{ details?.name }}</b></h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-start">
+
+                <button class="btn btn-primary shadow ml-1" (click)="type_expense='commissions'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar comisión</button>
+                <button class="btn btn-info shadow ml-1" (click)="type_expense='diet'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar dieta</button>
+                <button class="btn btn-warning shadow ml-1" (click)="type_expense='fuel'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar combustible</button>
 
                 <div class="row justify-content-space-between mt-3 p-2">
                     <div class="col-6 bg-secondary">
@@ -146,6 +150,40 @@
                     </div>
                 </div>
 
+
+            </div>
+            <div class="modal-footer ">
+                <button type="button " class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal add expense -->
+<div class="modal fade" id="addExpense" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title text-dark" id="exampleModalLabel">
+                    <b *ngIf="type_expense=='commissions'">Comisión</b>
+                    <b *ngIf="type_expense=='diet'">Dieta</b>
+                    <b *ngIf="type_expense=='fuel'">Combustible</b>
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-start">
+
+                <h5 class="p-2"><b>Empleado:</b> {{ details?.name }}</h5>
+
+                <input type="text" [(ngModel)]="description_expense" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una descripcion">
+                <input type="number" [(ngModel)]="total_expense" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un monto">
+                <button *ngIf="!loading" [disabled]="total_expense===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save_expense()" data-bs-dismiss="modal">
+                    Registrar
+                </button>
+                <button *ngIf="loading" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save_expense()">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Registrando...
+                </button>
 
             </div>
             <div class="modal-footer ">

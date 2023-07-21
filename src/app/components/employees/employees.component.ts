@@ -20,6 +20,9 @@ export class EmployeesComponent implements OnInit {
   name = '';
   phone = '';
   details:any;
+  description_expense='';
+  total_expense='';
+  type_expense='commissions';
   listEmployees: any[] = [];
 
   constructor(private _employees: EmployeesService) { }
@@ -68,6 +71,41 @@ export class EmployeesComponent implements OnInit {
     datos.append("phone",this.phone);
 
     this._employees.setEmployees(datos).subscribe((response)=>{
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Guardado correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.reset();
+      this.getAllEmployees();
+      this.action = 'list';
+    },error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Problemas tecnicos!',
+        text: 'No se pudo completar el registro, favor intente nuevamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.loading = false;
+    })
+
+  }
+
+  save_expense(): void {
+
+    this.loading = true;
+    let datos = new FormData();
+    datos.append("id_employee",this.details?.id);
+    datos.append("description",this.description_expense);
+    datos.append("total",this.total_expense);
+    datos.append("type",this.type_expense);
+
+    this._employees.setEmployeesExpense(datos).subscribe((response)=>{
       this.loading = false;
       Swal.fire({
         position: 'center',

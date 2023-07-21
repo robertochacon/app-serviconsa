@@ -9,9 +9,11 @@ import { HelperService } from './helper.service';
 export class EmployeesService {
 
   url: string = '';
+  url_expense: string = '';
 
   constructor(private http: HttpClient, private helper: HelperService) { 
     this.url =  helper.getUrl('employees');
+    this.url_expense =  helper.getUrl('employee_expense');
   }
 
   getAllEmployees(): Observable<any>{
@@ -27,6 +29,12 @@ export class EmployeesService {
   deleteEmployees(id: number): Observable<any>{
     const url = this.url+'/'+id;
     return this.http.delete(url);
+  }
+
+  //-----------------expense--------------------
+  setEmployeesExpense(json: any): Observable<any>{
+    const url = this.url_expense;
+    return this.http.post(url, json);
   }
 
 }
