@@ -188,4 +188,12 @@ export class InvoiceQuoteComponent implements OnInit {
     }, 1000);
   }
 
+  amountChange(index:number){
+    let amount: any = prompt("Cantidad");
+    this.listServicesSelected[index].amount = amount;
+    this.listServicesSelected[index].total = this.listServicesSelected[index].price * this.listServicesSelected[index].amount;
+    this.total = (this.total + this.listServicesSelected[index].total);
+    console.log(this.listServicesSelected[index]);
+  }
+
 }

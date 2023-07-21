@@ -117,13 +117,13 @@
 
                     <div class="mt-2 d-flex justify-content-between align-items-center">
                         <div class="">
-                            <h3 class="text-secondary">Seleccione un servicios</h3>
+                            <h3 class="text-secondary">Seleccionar servicios</h3>
                         </div>
                     </div>
 
                     <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
                         <table class="table table-hover responsive" id="listServices" style="width:100%">
-                            <thead>
+                            <thead class="bg-success text-white">
                                 <tr>
                                     <th>Atendido por</th>
                                     <th>Tarifa</th>
@@ -133,7 +133,7 @@
                             <tbody>
                                 <tr *ngFor="let service of listServices" class="text-start">
                                     <td>{{service.name}}</td>
-                                    <td>{{service.price}}</td>
+                                    <td>{{service.price | currency: 'USD' | lowercase}}</td>
                                     <td>
                                         <button class="btn btn-success shadow ml-1" (click)="selectedService(service)"><i class="fa-solid fa-hand-point-up"></i></button>
                                     </td>
@@ -155,17 +155,9 @@
 
                     <input type="text" [(ngModel)]="client" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre de cliente">
                     <input type="text" disabled="true" [(ngModel)]="attended" class="form-control shadow mt-3" maxLength="50" placeholder="Atendido por">
-                    <div class="row">
-                        <div class="col-6 p-2">
-                            <input type="number" [(ngModel)]="taxes" class="form-control shadow mt-3" maxLength="50" placeholder="Impuestos">
-                        </div>
-                        <div class="col-6 p-2">
-                            <input type="number" [(ngModel)]="discount" class="form-control shadow mt-3" maxLength="50" placeholder="Descuento">
-                        </div>
-                    </div>
                     <div>
-                        <table class="table table-hover responsive" id="listServices" style="width:100%">
-                            <thead>
+                        <table class="table table-hover responsive mt-3" id="listServices" style="width:100%">
+                            <thead class="bg-secondary text-white">
                                 <tr>
                                     <th>Nombre</th>
                                     <th>Descripcion</th>
@@ -176,12 +168,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let item of listServicesSelected" class="text-start">
+                                <tr *ngFor="let item of listServicesSelected;let index = index" class="text-start">
                                     <td>{{item.name}}</td>
                                     <td>{{item.description}}</td>
-                                    <td>{{item.price}}</td>
-                                    <td>{{item.amount}}</td>
-                                    <td>{{item.total}}</td>
+                                    <td>{{item.price | currency: 'USD' | lowercase}}</td>
+                                    <td>
+                                        {{item.amount}} |
+                                        <button class="btn btn-info" (click)="amountChange(index)"><i class="fa-solid fa-hand"></i></button>
+                                    </td>
+                                    <td>{{item.total | currency: 'USD' | lowercase}}</td>
                                     <td>
                                         <button class="btn btn-danger shadow ml-1"><i class="fa-solid fa-trash"></i></button>
                                     </td>
@@ -189,8 +184,21 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="row">
+                        <div class="col-6 p-2">
+                            <input type="number" [(ngModel)]="taxes" class="form-control shadow mt-3" maxLength="50" placeholder="Impuestos">
+                        </div>
+                        <div class="col-6 p-2">
+                            <input type="number" [(ngModel)]="discount" class="form-control shadow mt-3" maxLength="50" placeholder="Descuento">
+                        </div>
+                    </div>
                     <textarea cols="30" rows="4" [(ngModel)]="observation" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una observacion"></textarea>
                     <textarea cols="30" rows="4" [(ngModel)]="terms" class="form-control shadow mt-3" maxLength="50" placeholder="Digite los terminos"></textarea>
+                    <div class="row justify-content-space-between mt-3">
+                        <div class="col-12 text-end">
+                            <h5><b>Total:</b> {{ total | currency: 'USD' | lowercase }}</h5>
+                        </div>
+                    </div>
                     <button *ngIf="!loading" [disabled]="client===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
                     </button>
