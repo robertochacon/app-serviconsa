@@ -104,9 +104,9 @@
             </div>
             <div class="modal-body text-start">
 
-                <button class="btn btn-primary shadow ml-1" (click)="type_expense='commissions'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar comisión</button>
-                <button class="btn btn-info shadow ml-1" (click)="type_expense='diet'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar dieta</button>
-                <button class="btn btn-warning shadow ml-1" (click)="type_expense='fuel'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar combustible</button>
+                <button class="btn btn-primary shadow ml-1 text-white" (click)="type_expense='commissions'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar comisión</button>
+                <button class="btn btn-info shadow ml-1 text-white" (click)="type_expense='diet'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar dieta</button>
+                <button class="btn btn-warning shadow ml-1 text-white" (click)="type_expense='fuel'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar combustible</button>
 
                 <div class="row justify-content-space-between mt-3 p-2">
                     <div class="col-6 bg-secondary">
@@ -120,26 +120,22 @@
                     </div>
                 </div>
 
-                <table class="table table-striped table-hover responsive mt-3" id="listInvoices" style="width:100%">
-                    <thead class="bg-secondary text-white">
+                <b><h4>Gastos</h4></b>
+                <table class="table table-striped table-hover responsive mt-3" id="billsEmployee" style="width:100%">
+                    <thead class="bg-dark text-white">
                         <tr>
-                            <th>Nombre</th>
-                            <!-- <th>Descripcion</th> -->
-                            <th>Tarifa</th>
-                            <th>Cant.</th>
+                            <th>Descripcion</th>
                             <th>Total</th>
+                            <th>Tipo de gasto</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of details?.items" class="text-start">
-                            <td>
-                                <b>{{item.name}}</b>
-                                <br> {{item.description}}
-                            </td>
-                            <!-- <td>{{item.description}}</td> -->
-                            <td>{{item.price | currency: 'USD' | lowercase}}</td>
-                            <td>{{item.amount}}</td>
+                            <td>{{item.description}}</td>
                             <td>{{item.total | currency: 'USD' | lowercase}}</td>
+                            <td *ngIf="item.type=='commissions'">Comisión</td>
+                            <td *ngIf="item.type=='diet'">Dieta</td>
+                            <td *ngIf="item.type=='fuel'">Combustible</td>
                         </tr>
                     </tbody>
                 </table>
