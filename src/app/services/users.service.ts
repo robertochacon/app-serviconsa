@@ -9,9 +9,11 @@ import { HelperService } from './helper.service';
 export class UsersService {
 
   url: string = '';
+  url_register: string = '';
 
   constructor(private http: HttpClient, private helper: HelperService) { 
     this.url =  helper.getUrl('users');
+    this.url_register =  helper.getUrl('register');
   }
 
   getAllUsers(): Observable<any>{
@@ -20,7 +22,7 @@ export class UsersService {
   }
 
   setUsers(json: any): Observable<any>{
-    const url = this.url;
+    const url = this.url_register;
     return this.http.post(url, json);
   }
 

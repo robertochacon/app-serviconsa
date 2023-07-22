@@ -32,7 +32,7 @@
                     <tbody>
                         <tr *ngFor="let equipment_rental of listEquipmentRental" class="text-start">
                             <td>{{equipment_rental.name}}</td>
-                            <td>{{equipment_rental.price}}</td>
+                            <td>{{equipment_rental.price | currency: 'USD' | lowercase}}</td>
                             <td>{{equipment_rental.provider}}</td>
                             <td>{{equipment_rental.phone}}</td>
                             <td>{{equipment_rental.created_at | date:'dd/MM/yyyy'}}</td>

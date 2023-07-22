@@ -26,10 +26,7 @@ export class LoginComponent implements OnInit {
     this.loginError = false;
 
     this._authentication.login(this.identification,this.password).subscribe((response)=>{
-
-        console.log(response.access_token.user);
         
-
         localStorage.setItem("user_id", response.access_token.user.id);
         localStorage.setItem("name", response.access_token.user.name);
         localStorage.setItem("user", JSON.stringify(response.access_token.user));
@@ -38,7 +35,11 @@ export class LoginComponent implements OnInit {
       
         setTimeout(() => {
           this.loading = false;
-          this.router.navigate(["/dashboard"]);
+          if (response.access_token.user.role == 'seller') {
+            this.router.navigate(["/invoice_quote"]);
+          }else{
+            this.router.navigate(["/dashboard"]);
+          }
         }, 2000);
 
     }, error => {

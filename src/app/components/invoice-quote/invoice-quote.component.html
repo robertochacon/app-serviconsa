@@ -22,7 +22,7 @@
 
                     <div class="mt-2 d-flex justify-content-between align-items-center">
                         <div class="">
-                            <h3>Lista de cotización</h3>
+                            <h3>Lista de cotizaciónes</h3>
                         </div>
                         <div class="col-lg-0 text-start">
                             <p class="btn btn-primary mt-1" (click)="action='register';type='quote'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar de cotización</span></p>
@@ -231,25 +231,6 @@
             </div>
             <div class="modal-body text-start">
 
-                <!-- <div class="row justify-content-space-between">
-                    <div class="col-3">
-                        <img class="mb-3" src="./assets/img/logo.png" width="200" alt="">
-                    </div>
-                    <div class="col-5 text-center">
-                        <h1>SERVICONSA</h1>
-                        <h5>Servicios de Concretos Santamaria</h5>
-                        <h5>C/ Central #6, Sector Libertad</h5>
-                        <h5>Villa Altagracia, R.D.</h5>
-                        <h5>Tel.: 849-851-7880</h5>
-                    </div>
-                    <div class="col-4 text-end">
-                        <h5 *ngIf="details?.type=='quote'">PRESUPUESTO Y O COTIZACION</h5>
-                        <h5 *ngIf="details?.type=='invoice'">FACTURACIÓN</h5>
-                        <h5>Fecha: {{ details?.created_at | date:'dd/MM/yyyy' }}</h5>
-                        <h5>Total: {{ details?.total | currency: 'USD' | lowercase }}</h5>
-                    </div>
-                </div> -->
-
                 <div class="row justify-content-space-between mt-3">
                     <div class="col-12">
                         <h5 class="text-white bg-primary p-2"><b>Cliente:</b> {{ details?.client }}</h5>
@@ -305,6 +286,7 @@
 
             </div>
             <div class="modal-footer ">
+                <button *ngIf="details?.type=='quote'" type="button " class="btn btn-success" data-bs-dismiss="modal" (click)="type='invoice';check_in()">Facturar</button>
                 <button type="button " class="btn btn-secondary" data-bs-dismiss="modal" (click)="print()">Imprimir</button>
                 <button type="button " class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
@@ -377,13 +359,13 @@
             <h5><b>Observación:</b>
                 <hr>
             </h5>
-            <h6>{{ details?.observation }}</h6>
+            <h6>{{ details?.observation || 'N/A' }}</h6>
         </div>
         <div class="col-5">
             <h5><b>Terminos:</b>
                 <hr>
             </h5>
-            <h6>{{ details?.terms }}</h6>
+            <h6>{{ details?.terms || 'N/A' }}</h6>
         </div>
     </div>
 

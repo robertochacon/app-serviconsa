@@ -8,25 +8,10 @@
         </div>
 
         <div>
-            <a routerLink="/dashboard" style="text-decoration: none;cursor: pointer;" class="p-2">
+            <a routerLink="/dashboard" style="text-decoration: none;cursor: pointer;" class="p-2" *ngIf="role==='admin'">
                 <img src="./assets/img/home.png" class="mt-1 mb-1" width="60px" alt=""><br>
                 <h5 class="text-dark">Inicio</h5>
             </a>
-            <!-- 
-            <a routerLink="/patients" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/patients.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Pacientes</h5>
-            </a>
-
-            <a routerLink="/consultations" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/consultation.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Consultas</h5>
-            </a>
-
-            <a routerLink="/emergencies" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/emergency.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Emergenacias</h5>
-            </a> -->
 
             <a routerLink="/invoice_quote" style="text-decoration: none;cursor: pointer;" class="p-2">
                 <img src="./assets/img/invoice_quote.png" class="mt-1 mb-1" width="60px" alt=""><br>

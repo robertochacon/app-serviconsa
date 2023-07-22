@@ -19,11 +19,7 @@ export class UsersComponent implements OnInit {
   name = '';
   identification = '';
   role = 'admin';
-  entity:any = '1';
-  range:any = '';
-  specialty:any = '';
-  phone:any = '';
-  address:any = '';
+  password = '';
   allUsers: any[] = [];
   listDoctors: any[] = [];
   listAdmins: any[] = [];
@@ -34,21 +30,6 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllUsers();
-  }
-
-  searchPatient(){
-    
-    if(this.role==='admin' && this.identification.length === 11){
-      this._users.getPatient(this.identification).subscribe((response)=>{
-        let resp = response;
-        this.name = resp.nombre+' '+resp.apellidos;
-      });
-    }else if(this.role==='user' && this.identification.length === 11){
-      this._users.getPatient(this.identification).subscribe((response)=>{
-        let resp = response;
-        this.name = resp.nombre+' '+resp.apellidos;
-      });
-    }
   }
 
   getAllUsers(){
@@ -93,11 +74,8 @@ export class UsersComponent implements OnInit {
     let datos = new FormData();
     datos.append("name",this.name);
     datos.append("identification",this.identification);
-    datos.append("range",this.range);
-    datos.append("specialty",this.specialty);
-    datos.append("phone",this.phone);
-    datos.append("address",this.address);
     datos.append("role",this.role);
+    datos.append("password",this.password);
     // datos.append("file",this.file);
 
     this._users.setUsers(datos).subscribe((response)=>{

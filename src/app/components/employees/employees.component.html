@@ -1,6 +1,6 @@
 <!-- <app-navbarinto></app-navbarinto> -->
 
-<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+<div class="row justify-content-center without-borders">
 
     <app-submenu [page]="'users'"></app-submenu>
 
@@ -86,13 +86,13 @@
 </div>
 
 
-<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
+<!-- <div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
     <div>
         <img class="mb-3" src="../../../assets/img/devices.svg" width="80%" alt="">
         <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
         <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
     </div>
-</div>
+</div> -->
 
 <!-- Modal details -->
 <div class="modal fade" id="details" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -131,7 +131,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of details?.items" class="text-start">
-                            <td>{{item.description}}</td>
+                            <td>{{item.description || 'N/A'}}</td>
                             <td>{{item.total | currency: 'USD' | lowercase}}</td>
                             <td *ngIf="item.type=='commissions'">Comisión</td>
                             <td *ngIf="item.type=='diet'">Dieta</td>

@@ -29,9 +29,6 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllEmployees();
-    setTimeout(function(){
-      $('#billsEmployee').DataTable();
-    },200);
   }
 
   getAllEmployees(){

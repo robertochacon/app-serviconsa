@@ -25,7 +25,7 @@
                             <h3>Lista de administradores</h3>
                         </div>
                         <div class="col-lg-0 text-start">
-                            <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar usuario</span></p>
+                            <p class="btn btn-primary mt-1" (click)="role='admin';action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar usuario</span></p>
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@
                             <h3>Lista de vendedores</h3>
                         </div>
                         <div class="col-lg-0 text-start">
-                            <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar usuario</span></p>
+                            <p class="btn btn-primary mt-1" (click)="role='seller';action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar usuario</span></p>
                         </div>
                     </div>
 
@@ -126,15 +126,13 @@
                         No se pudo completar su registro.
                     </div>
                     <h5>Información general</h5>
-                    <select class="form-control shadow mt-3" [(ngModel)]="role">
+                    <select disabled="true" class="form-control shadow mt-3" [(ngModel)]="role">
                         <option value="seller">Vendedor/a</option>
                         <option value="admin">Administrador</option>
                     </select>
-                    <input type="text" (keyup)="searchPatient()" [(ngModel)]="identification" class="form-control shadow mt-3" maxLength="11" placeholder="Digite una identificacion">
+                    <input type="text" [(ngModel)]="identification" class="form-control shadow mt-3" maxLength="11" placeholder="Digite una identificacion">
                     <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
-                    <input type="text" [(ngModel)]="specialty" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una especialidad">
-                    <input type="text" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
-                    <textarea name="" id="" cols="30" rows="4" [(ngModel)]="address" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una direccion"></textarea>
+                    <input type="text" [(ngModel)]="password" class="form-control shadow mt-3" minlength="6" maxLength="50" placeholder="Digite una clave"> La clave debe tener al menos 6 caracteres
                     <button *ngIf="!loading" [disabled]="name==='' || identification===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
                     </button>

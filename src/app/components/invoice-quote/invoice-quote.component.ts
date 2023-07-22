@@ -216,4 +216,33 @@ export class InvoiceQuoteComponent implements OnInit {
     }
   }
 
+  check_in(){
+    this.loading = true;
+    let datos = this.details;
+    datos.type = this.type;
+    delete datos.items;
+
+    this._invoice_quote.updateInvoiceQuote(this.details?.id, datos).subscribe((response)=>{
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Facturado correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.getAllInvoiceQuote();
+    },error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Problemas tecnicos!',
+        text: 'No se pudo completar el registro, favor intente nuevamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.loading = false;
+    })
+  }
+
 }
