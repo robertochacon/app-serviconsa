@@ -9,10 +9,12 @@ import { HomeService } from 'src/app/services/home.service';
 export class DashboardComponent implements OnInit {
   loading = false;
   name: any = '';
-  users = 0;
-  documents = 0;
-  shipments = 0;
-  deliverys = 0;
+  tid = 0;
+  tiw = 0;
+  tim = 0;
+  tqd = 0;
+  tqw = 0;
+  tqm = 0;
 
   @Input() page: string = 'dashboard';
   constructor(private _home: HomeService) { 
@@ -26,22 +28,16 @@ export class DashboardComponent implements OnInit {
   getAllInfo(){
     this.loading = true;
 
-    let role = localStorage.getItem('role');
-    let method;
-    let entity = localStorage.getItem('entity_id');
+    this._home.getDashboard().subscribe((response)=>{
 
-    if(role==="super_admin"){
-      method = this._home.getAllInfo();
-    }else{
-      method = this._home.getAllInfoByEntity(entity);
-    }
+      this.tqd = response.data.quote[0][0].day;
+      this.tqw = response.data.quote[0][1].week;
+      this.tqm = response.data.quote[0][2].month;
 
-    method.subscribe((response)=>{
+      this.tid = response.data.invoice[0][0].day;
+      this.tiw = response.data.invoice[0][1].week;
+      this.tim = response.data.invoice[0][2].month;
 
-      this.users = response.data.users;
-      this.documents = response.data.documents;
-      this.shipments = response.data.shipments;
-      this.deliverys = response.data.deliverys;
       this.loading = false;
       
     }, error=>{

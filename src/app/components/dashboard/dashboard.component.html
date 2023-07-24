@@ -12,38 +12,49 @@
                 <h6>Aqui podras ver el total de todos los avances que tienes por el momento.</h6>
             </div>
 
-            <!-- <div class="row">
-                <div class="col-3 text-center p-2">
-                    <div class="alert alert-secondary" role="alert">
-                        <h2 class="text-secondary">0</h2>
-                        <h4 class="text-secondary">Pacientes</h4>
+            <b><h5>Totales en cotizaciónes</h5></b>
+            <div class="row">
+                <div class="col-4 text-center">
+                    <div class="alert alert-secondary" style="border-left:5px solid green;" role="alert">
+                        <h2 class="text-secondary">{{tqd | currency: 'USD' | lowercase}}</h2>
+                        <h4 class="text-secondary">Hoy</h4>
                     </div>
                 </div>
-                <div class="col-3 text-center p-2">
-                    <div class="alert alert-secondary" role="alert">
-                        <h2 class="text-secondary">0</h2>
-                        <h4 class="text-secondary">Consultas</h4>
+                <div class="col-4 text-center">
+                    <div class="alert alert-secondary" style="border-left:5px solid #4a4d89;" role="alert">
+                        <h2 class="text-secondary">{{tqd | currency: 'USD' | lowercase}}</h2>
+                        <h4 class="text-secondary">Esta semana</h4>
                     </div>
                 </div>
-                <div class="col-3 text-center p-2">
-                    <div class="alert alert-secondary" role="alert">
-                        <h2 class="text-secondary">0</h2>
-                        <h4 class="text-secondary">Emergencias</h4>
+                <div class="col-4 text-center">
+                    <div class="alert alert-secondary" style="border-left:5px solid yellow;" role="alert">
+                        <h2 class="text-secondary">{{tqd | currency: 'USD' | lowercase}}</h2>
+                        <h4 class="text-secondary">Este mes</h4>
                     </div>
                 </div>
-                <div class="col-3 text-center p-2">
-                    <div class="alert alert-secondary" role="alert">
-                        <h2 class="text-secondary">0</h2>
-                        <h4 class="text-secondary">Licencias</h4>
+            </div>
+
+            <b><h5>Totales en facturas</h5></b>
+            <div class="row">
+                <div class="col-4 text-center">
+                    <div class="alert alert-secondary" style="border-left:5px solid green;" role="alert">
+                        <h2 class="text-secondary">{{tid | currency: 'USD' | lowercase}}</h2>
+                        <h4 class="text-secondary">Hoy</h4>
                     </div>
                 </div>
-                <div class="col-3 text-center p-2">
-                    <div class="alert alert-secondary" role="alert">
-                        <h2 class="text-secondary">0</h2>
-                        <h4 class="text-secondary">Doctores</h4>
+                <div class="col-4 text-center">
+                    <div class="alert alert-secondary" style="border-left:5px solid #4a4d89;" role="alert">
+                        <h2 class="text-secondary">{{tiw | currency: 'USD' | lowercase}}</h2>
+                        <h4 class="text-secondary">Esta semana</h4>
                     </div>
                 </div>
-            </div> -->
+                <div class="col-4 text-center">
+                    <div class="alert alert-secondary" style="border-left:5px solid yellow;" role="alert">
+                        <h2 class="text-secondary">{{tim | currency: 'USD' | lowercase}}</h2>
+                        <h4 class="text-secondary">Este mes</h4>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>

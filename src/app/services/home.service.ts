@@ -8,18 +8,14 @@ import { HelperService } from './helper.service';
 })
 export class HomeService {
 
-  url = 'https://rcs-api-services-iffsq.ondigitalocean.app/api/home';
-  // url = 'http://127.0.0.1:8000/api/home';
+  url: string = '';
 
-  constructor(private http: HttpClient) { }
-
-  getAllInfo(): Observable<any>{
-    const url = this.url;
-    return this.http.get(url);
+  constructor(private http: HttpClient, private helper: HelperService) { 
+    this.url =  helper.getUrl('dashboard');
   }
 
-  getAllInfoByEntity(entidad: any): Observable<any>{
-    const url = this.url+'/entity/'+entidad;
+  getDashboard(): Observable<any>{
+    const url = this.url;
     return this.http.get(url);
   }
 
