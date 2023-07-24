@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
   allUsers: any[] = [];
   listDoctors: any[] = [];
   listAdmins: any[] = [];
-  listUsers: any[] = [];
+  listSeller: any[] = [];
   listEntities: any[] = [];
 
   constructor(private _users: UsersService) { }
@@ -38,14 +38,13 @@ export class UsersComponent implements OnInit {
     this._users.getAllUsers().subscribe((response)=>{
 
       this.allUsers  = response.data;
-      this.listDoctors = this.allUsers .filter(item => item.role === 'doctor');
       this.listAdmins = this.allUsers .filter(item => item.role === 'admin');
-      this.listUsers = this.allUsers .filter(item => item.role === 'user');
+      this.listSeller = this.allUsers .filter(item => item.role === 'seller');
 
       setTimeout(function(){
         $('#listDoctors').DataTable();
         $('#listAdmins').DataTable();
-        $('#listUsers').DataTable();
+        $('#listSeller').DataTable();
       },100);
       this.loading = false;
       
@@ -58,7 +57,7 @@ export class UsersComponent implements OnInit {
 
   reloadDataTable(){
     setTimeout(function(){
-      $('#listUsers').DataTable();
+      $('#listSeller').DataTable();
     },100);
   }
 

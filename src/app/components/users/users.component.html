@@ -71,7 +71,7 @@
                     </div>
 
                     <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
-                        <table class="table table-hover responsive" id="listUsers" style="width:100%">
+                        <table class="table table-hover responsive" id="listSeller" style="width:100%">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -83,7 +83,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let user of listUsers" class="text-start">
+                                <tr *ngFor="let user of listSeller" class="text-start">
                                     <td><i class="fa-solid fa-user mr-2 text-black"></i></td>
                                     <td>{{user.identification}}</td>
                                     <td>{{user.name}}</td>
