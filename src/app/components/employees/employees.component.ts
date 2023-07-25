@@ -21,6 +21,9 @@ export class EmployeesComponent implements OnInit {
   phone = '';
   details:any;
   description_expense='';
+  commissions:any=0;
+  diet:any=0;
+  fuel:any=0;
   total_expense='';
   type_expense='commissions';
   listEmployees: any[] = [];
@@ -167,6 +170,18 @@ export class EmployeesComponent implements OnInit {
       }
     })
 
+  }
+
+  calculaTotal(){
+    this.details?.items.map((item:any) => {
+      if (item.type==='commissions') {
+        this.commissions = (this.commissions+item.total);
+      }else if (item.type==='diet') {
+        this.diet = (this.diet+item.total);
+      }else if (item.type==='fuel') {
+        this.fuel = (this.fuel+item.total);
+      }
+    })
   }
 
 

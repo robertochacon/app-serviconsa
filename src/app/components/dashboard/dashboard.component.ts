@@ -38,9 +38,6 @@ export class DashboardComponent implements OnInit {
       this.tiw = response.data.invoice[1][0].week!=null?response.data.invoice[1][0].week:0;
       this.tim = response.data.invoice[2][0].month!=null?response.data.invoice[2][0].month:0;
 
-      console.log(this.tqw);
-
-
       this.loading = false;
       
     }, error=>{

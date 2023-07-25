@@ -35,7 +35,7 @@
                             <td>{{employee.phone}}</td>
                             <td>{{employee.created_at | date:'dd/MM/yyyy'}}</td>
                             <td>
-                                <button class="btn btn-warning shadow ml-1" (click)="details=employee" data-bs-toggle="modal" data-bs-target="#details"><i class="fa-solid fa-eye"></i></button>
+                                <button class="btn btn-warning shadow ml-1" (click)="details=employee;calculaTotal()" data-bs-toggle="modal" data-bs-target="#details"><i class="fa-solid fa-eye"></i></button>
                                 <button class="btn btn-danger shadow ml-1" (click)="delete(employee.id)"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
@@ -120,12 +120,34 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-4 text-center">
+                        <div class="alert alert-secondary" style="border-left:5px solid green;" role="alert">
+                            <h2 class="text-secondary">{{commissions | currency: 'USD' | lowercase}}</h2>
+                            <h4 class="text-secondary">Comisión</h4>
+                        </div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="alert alert-secondary" style="border-left:5px solid #4a4d89;" role="alert">
+                            <h2 class="text-secondary">{{diet | currency: 'USD' | lowercase}}</h2>
+                            <h4 class="text-secondary">Dieta</h4>
+                        </div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div class="alert alert-secondary" style="border-left:5px solid yellow;" role="alert">
+                            <h2 class="text-secondary">{{fuel | currency: 'USD' | lowercase}}</h2>
+                            <h4 class="text-secondary">Combustible</h4>
+                        </div>
+                    </div>
+                </div>
+
                 <b><h4>Gastos</h4></b>
                 <table class="table table-striped table-hover responsive mt-3" id="billsEmployee" style="width:100%">
                     <thead class="bg-dark text-white">
                         <tr>
                             <th>Descripcion</th>
                             <th>Total</th>
+                            <th>Fecha</th>
                             <th>Tipo de gasto</th>
                         </tr>
                     </thead>
@@ -133,6 +155,7 @@
                         <tr *ngFor="let item of details?.items" class="text-start">
                             <td>{{item.description || 'N/A'}}</td>
                             <td>{{item.total | currency: 'USD' | lowercase}}</td>
+                            <td>{{item.created_at | date:'dd/MM/yyyy'}}</td>
                             <td *ngIf="item.type=='commissions'">Comisión</td>
                             <td *ngIf="item.type=='diet'">Dieta</td>
                             <td *ngIf="item.type=='fuel'">Combustible</td>
