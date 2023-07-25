@@ -29,14 +29,17 @@ export class DashboardComponent implements OnInit {
     this.loading = true;
 
     this._home.getDashboard().subscribe((response)=>{
+      
+      this.tqd = response.data.quote[0][0].day!=null?response.data.quote[0][0].day:0;
+      this.tqw = response.data.quote[1][0].week!=null?response.data.quote[1][0].week:0;
+      this.tqm = response.data.quote[2][0].month!=null?response.data.quote[2][0].month:0;
 
-      this.tqd = response.data.quote[0][0].day;
-      this.tqw = response.data.quote[0][1].week;
-      this.tqm = response.data.quote[0][2].month;
+      this.tid = response.data.invoice[0][0].day!=null?response.data.invoice[0][0].day:0;
+      this.tiw = response.data.invoice[1][0].week!=null?response.data.invoice[1][0].week:0;
+      this.tim = response.data.invoice[2][0].month!=null?response.data.invoice[2][0].month:0;
 
-      this.tid = response.data.invoice[0][0].day;
-      this.tiw = response.data.invoice[0][1].week;
-      this.tim = response.data.invoice[0][2].month;
+      console.log(this.tqw);
+
 
       this.loading = false;
       
