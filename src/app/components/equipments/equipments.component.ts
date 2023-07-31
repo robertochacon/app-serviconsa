@@ -21,6 +21,7 @@ export class EquipmentsComponent implements OnInit {
   name = '';
   provider = '';
   phone = '';
+  total:any = 0;
   listEquipmentRental: any[] = [];
 
   constructor(private _equipment_rental: EquipmentsService) { }
@@ -35,6 +36,9 @@ export class EquipmentsComponent implements OnInit {
     this._equipment_rental.getAllEquipmentRental().subscribe((response)=>{
 
       this.listEquipmentRental  = response.data;
+      this.listEquipmentRental.map((item:any) => {
+          this.total += parseInt(item.price);
+      })
 
       setTimeout(function(){
         $('#listEquipmentRental').DataTable();

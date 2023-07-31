@@ -1,16 +1,16 @@
 <!-- <app-navbarinto></app-navbarinto> -->
 
-<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+<div class="row justify-content-center without-borders">
 
     <app-submenu [page]="'users'"></app-submenu>
 
     <div class="col-lg-10 col-md-10 col-sm-12">
 
-        <div class="container p-5 text-center" *ngIf="action==='list'">
+        <div class="container p-2 text-center" *ngIf="action==='list'">
 
             <div class="mt-2 d-flex justify-content-between align-items-center">
                 <div class="">
-                    <h3>Lista de servicios</h3>
+                    <h3>Lista de servicios ({{listServices.length}})</h3>
                 </div>
                 <div class="col-lg-0 text-start">
                     <p class="btn btn-primary mt-1" (click)="updateData=null;action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar servicio</span></p>
@@ -45,7 +45,7 @@
 
         </div>
 
-        <div class="container p-5" *ngIf="action==='register'">
+        <div class="container p-2" *ngIf="action==='register'">
             <div class="row mt-2">
                 <h3 *ngIf="updateData == null">Registro de servicio</h3>
                 <h3 *ngIf="updateData != null">Actualizar servicio</h3>
@@ -90,10 +90,10 @@
 </div>
 
 
-<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
+<!-- <div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
     <div>
         <img class="mb-3" src="../../../assets/img/devices.svg" width="80%" alt="">
         <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
         <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
     </div>
-</div>
+</div> -->

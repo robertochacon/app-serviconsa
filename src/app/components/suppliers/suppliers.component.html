@@ -1,16 +1,16 @@
 <!-- <app-navbarinto></app-navbarinto> -->
 
-<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+<div class="row justify-content-center without-borders">
 
     <app-submenu [page]="'users'"></app-submenu>
 
     <div class="col-lg-10 col-md-10 col-sm-12">
 
-        <div class="container p-5 text-center" *ngIf="action==='list'">
+        <div class="container p-2 text-center" *ngIf="action==='list'">
 
             <div class="mt-2 d-flex justify-content-between align-items-center">
                 <div class="">
-                    <h3>Lista de suplidores</h3>
+                    <h3>Lista de suplidores ({{listSuppliers.length}})</h3>
                 </div>
                 <div class="col-lg-0 text-start">
                     <p class="btn btn-primary mt-1" (click)="updateData=null;action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar suplidor</span></p>
@@ -32,7 +32,7 @@
                         <tr *ngFor="let supplier of listSuppliers" class="text-start">
                             <td>{{supplier.name || 'N/A'}}</td>
                             <td>{{supplier.direction || 'N/A'}}</td>
-                            <td>{{supplier.phone || 'N/A'}}</td>
+                            <td>{{supplier.phone | mask: '(000) 000-0000' || 'N/A' }}</td>
                             <td>{{supplier.created_at | date:'dd/MM/yyyy' || 'N/A'}}</td>
                             <td>
                                 <button class="btn btn-info shadow" (click)="updateData=supplier;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -45,7 +45,7 @@
 
         </div>
 
-        <div class="container p-5" *ngIf="action==='register'">
+        <div class="container p-2" *ngIf="action==='register'">
             <div class="row mt-2">
                 <h3 *ngIf="updateData == null">Registro de suplidor</h3>
                 <h3 *ngIf="updateData != null">Actualizar suplidor</h3>
@@ -70,7 +70,7 @@
                     <h5>Información general</h5>
                     <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
                     <input type="text" [(ngModel)]="direction" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una direccion">
-                    <input type="text" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
+                    <input type="text" [(ngModel)]="phone" mask="(000) 000-0000" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
                     <button *ngIf="!loading && updateData == null" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
                     </button>
@@ -90,10 +90,10 @@
 </div>
 
 
-<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
+<!-- <div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
     <div>
         <img class="mb-3" src="../../../assets/img/devices.svg" width="80%" alt="">
         <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
         <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
     </div>
-</div>
+</div> -->

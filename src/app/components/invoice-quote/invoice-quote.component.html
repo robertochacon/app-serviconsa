@@ -1,12 +1,12 @@
 <!-- <app-navbarinto></app-navbarinto> -->
 
-<div class="row justify-content-center without-borders p-0 m-0">
+<div class="row justify-content-center without-borders">
 
     <app-submenu class="no-print" [page]="'invoice-quote'"></app-submenu>
 
     <div class="col-lg-10 col-md-10 col-sm-12">
 
-        <div class="container p-5 text-center no-print" *ngIf="action==='list'">
+        <div class="container p-2 text-center no-print" *ngIf="action==='list'">
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -22,10 +22,10 @@
 
                     <div class="mt-2 d-flex justify-content-between align-items-center">
                         <div class="">
-                            <h3>Lista de cotizaciónes</h3>
+                            <h3>Lista de cotizaciónes ({{listQuotes.length}})</h3>
                         </div>
                         <div class="col-lg-0 text-start">
-                            <p class="btn btn-primary mt-1" (click)="action='register';type='quote'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar de cotización</span></p>
+                            <p class="btn btn-primary mt-1" (click)="action='register';updateData=null;type='quote'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar de cotización</span></p>
                         </div>
                     </div>
 
@@ -49,7 +49,7 @@
                                     <td>{{quote.status}}</td>
                                     <td>{{quote.created_at | date:'dd/MM/yyyy'}}</td>
                                     <td>
-                                        <button class="btn btn-info shadow" (click)="''"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-info shadow" (click)="updateData=quote;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
                                         <button class="btn btn-warning shadow ml-1" (click)="details=quote" data-bs-toggle="modal" data-bs-target="#details"><i class="fa-solid fa-eye"></i></button>
                                         <button class="btn btn-danger shadow ml-1" (click)="delete(quote.id)"><i class="fa-solid fa-trash"></i></button>
                                     </td>
@@ -63,10 +63,10 @@
 
                     <div class="mt-2 d-flex justify-content-between align-items-center">
                         <div class="">
-                            <h3>Lista de facturas</h3>
+                            <h3>Lista de facturas ({{listInvoices.length}})</h3>
                         </div>
                         <div class="col-lg-0 text-start">
-                            <p class="btn btn-primary mt-1" (click)="action='register';type='invoice'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar factura</span></p>
+                            <p class="btn btn-primary mt-1" (click)="action='register';updateData=null;type='invoice'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar factura</span></p>
                         </div>
                     </div>
 
@@ -90,7 +90,7 @@
                                     <td>{{invoice.status}}</td>
                                     <td>{{invoice.created_at | date:'dd/MM/yyyy'}}</td>
                                     <td>
-                                        <button class="btn btn-info shadow" (click)="''"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-info shadow" (click)="updateData=invoice;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
                                         <button class="btn btn-warning shadow ml-1" (click)="details=invoice" data-bs-toggle="modal" data-bs-target="#details"><i class="fa-solid fa-eye"></i></button>
                                         <button class="btn btn-danger shadow ml-1" (click)="delete(invoice.id)"><i class="fa-solid fa-trash"></i></button>
                                     </td>
@@ -104,9 +104,10 @@
 
         </div>
 
-        <div class="container p-5 no-print" *ngIf="action==='register'">
+        <div class="container p-2 no-print" *ngIf="action==='register'">
             <div class="row mt-2">
-                <h3>Registro de cotización o factura</h3>
+                <h3 *ngIf="updateData == null">Registro de cotización o factura</h3>
+                <h3 *ngIf="updateData != null">Actualizar cotización o factura</h3>
                 <div class="col-6 text-start">
                     <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
                 </div>
@@ -135,7 +136,7 @@
                                     <td>{{service.name}}</td>
                                     <td>{{service.price | currency: 'USD' | lowercase}}</td>
                                     <td>
-                                        <button class="btn btn-success shadow ml-1" (click)="selectedService(service)"><i class="fa-solid fa-hand-point-up"></i></button>
+                                        <button class="btn btn-success shadow ml-1" [disabled]="updateData!=null" (click)="selectedService(service)"><i class="fa-solid fa-hand-point-up"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -172,13 +173,13 @@
                                     <td>{{item.name}}</td>
                                     <td>{{item.description}}</td>
                                     <td>{{item.price | currency: 'USD' | lowercase}}</td>
-                                    <td>
-                                        {{item.amount}} |
-                                        <button class="btn btn-info" (click)="amountChange(index)"><i class="fa-solid fa-hand"></i></button>
+                                    <td class="d-flex">
+                                        {{item.amount}}
+                                        <button class="btn btn-info ml-1" *ngIf="updateData == null" (click)="amountChange(index)"><i class="fa-solid fa-hand"></i></button>
                                     </td>
                                     <td>{{item.total | currency: 'USD' | lowercase}}</td>
                                     <td>
-                                        <button class="btn btn-danger shadow ml-1"><i class="fa-solid fa-trash"></i></button>
+                                        <button class="btn btn-danger shadow ml-1" *ngIf="updateData == null"><i class="fa-solid fa-trash"></i></button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -206,8 +207,11 @@
                             <h5><b>Total:</b> {{ total | currency: 'USD' | lowercase }}</h5>
                         </div>
                     </div>
-                    <button *ngIf="!loading" [disabled]="client===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                    <button *ngIf="!loading && updateData == null" [disabled]="client===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
+                    </button>
+                    <button *ngIf="!loading && updateData != null" [disabled]="client===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="update()">
+                        Actualizar
                     </button>
                     <button *ngIf="loading" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

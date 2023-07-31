@@ -1,19 +1,25 @@
 <!-- <app-navbarinto></app-navbarinto> -->
 
-<div class="row justify-content-center without-borders d-none d-lg-flex d-md-flex">
+<div class="row justify-content-center without-borders">
 
     <app-submenu [page]="'users'"></app-submenu>
 
     <div class="col-lg-10 col-md-10 col-sm-12">
 
-        <div class="container p-5 text-center" *ngIf="action==='list'">
+        <div class="container p-2 text-center" *ngIf="action==='list'">
 
             <div class="mt-2 d-flex justify-content-between align-items-center">
                 <div class="">
-                    <h3>Lista de equipos rentados</h3>
+                    <h3>Lista de equipos rentados ({{listEquipmentRental.length}})</h3>
                 </div>
                 <div class="col-lg-0 text-start">
                     <p class="btn btn-primary mt-1" (click)="updateData=null;action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar equipo a rentar</span></p>
+                </div>
+            </div>
+
+            <div class="row justify-content-start">
+                <div class="col-6 text-start">
+                    <h4 class="text-danger"><b>Total: {{total | currency: 'USD' | lowercase}}</b></h4>
                 </div>
             </div>
 
@@ -34,7 +40,7 @@
                             <td>{{equipment_rental.name || 'N/A'}}</td>
                             <td>{{equipment_rental.price | currency: 'USD' | lowercase}}</td>
                             <td>{{equipment_rental.provider || 'N/A'}}</td>
-                            <td>{{equipment_rental.phone || 'N/A'}}</td>
+                            <td>{{equipment_rental.phone | mask: '(000) 000-0000' || 'N/A'}}</td>
                             <td>{{equipment_rental.created_at | date:'dd/MM/yyyy' || 'N/A'}}</td>
                             <td>
                                 <button class="btn btn-info shadow" (click)="updateData=equipment_rental;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -47,7 +53,7 @@
 
         </div>
 
-        <div class="container p-5" *ngIf="action==='register'">
+        <div class="container p-2" *ngIf="action==='register'">
             <div class="row mt-2">
                 <h3 *ngIf="updateData == null">Registro de renta de equipo</h3>
                 <h3 *ngIf="updateData != null">Actualizar renta de equipo</h3>
@@ -77,7 +83,7 @@
                     <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
                     <input type="number" [(ngModel)]="price" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un precio">
                     <input type="text" [(ngModel)]="provider" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un proveedor">
-                    <input type="text" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
+                    <input type="text" [(ngModel)]="phone" mask="(000) 000-0000" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
                     <button *ngIf="!loading && updateData == null" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
                     </button>
@@ -97,10 +103,10 @@
 </div>
 
 
-<div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
+<!-- <div class="d-flex justify-content-center align-items-center text-center d-sm-block d-lg-none d-md-none" style="height:100vh;">
     <div>
         <img class="mb-3" src="../../../assets/img/devices.svg" width="80%" alt="">
         <h2 class="mb-3">Utilice una tableta o una pc para visualizar contenido.</h2>
         <a routerLink="/" class="btn btn-success shadow">Pagina principal</a>
     </div>
-</div>
+</div> -->

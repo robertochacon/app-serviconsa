@@ -17,6 +17,7 @@ export class InvoiceQuoteComponent implements OnInit {
   loading = false;
   loadData = false;
   result = '';
+  updateData:any = null;
   client = '';
   attended = '';
   taxes:any = 0;
@@ -123,6 +124,57 @@ export class InvoiceQuoteComponent implements OnInit {
       this.reset();
       this.getAllInvoiceQuote();
       this.listServicesSelected = [];
+    },error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Problemas tecnicos!',
+        text: 'No se pudo completar el registro, favor intente nuevamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.loading = false;
+    })
+
+  }
+
+  setUpdate(){
+    this.client = this.updateData?.client;
+    this.taxes = this.updateData?.taxes;
+    this.discount = this.updateData?.discount;
+    this.observation = this.updateData?.observation;
+    this.terms = this.updateData?.terms;
+    this.total = this.updateData?.total;
+    this.listServicesSelected = this.updateData?.items;
+    console.log(this.listServicesSelected);
+    
+  }
+
+  update(): void {
+
+    this.loading = true;
+    let datos = new FormData();
+    datos.append("client",this.client);
+    datos.append("attended",this.attended);
+    datos.append("taxes",this.taxes);
+    datos.append("discount",this.discount);
+    datos.append("observation",this.observation);
+    datos.append("terms",this.terms);
+    datos.append("total",this.total);
+    datos.append("items", JSON.stringify(this.listServicesSelected));
+
+    this._invoice_quote.updateInvoiceQuote(this.updateData?.id, datos).subscribe((response)=>{
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Actualizado correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.reset();
+      this.getAllServices();
+      this.action = 'list';
     },error => {
       Swal.fire({
         position: 'center',

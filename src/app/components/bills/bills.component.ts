@@ -18,6 +18,8 @@ export class BillsComponent implements OnInit {
   loadData = false;
   result = '';
   updateData:any = null;
+  totalDiary:any = 0;
+  totalFixed:any = 0;
   price = '';
   description = '';
   type = 'fixed';
@@ -39,6 +41,14 @@ export class BillsComponent implements OnInit {
       this.allBills  = response.data;
       this.listBillsDiary = this.allBills.filter(item => item.type === 'diary');
       this.listBillsFixed = this.allBills .filter(item => item.type === 'fixed');
+
+      this.listBillsDiary.map((item:any) => {
+        this.totalDiary += parseInt(item.price);
+      })
+
+      this.listBillsFixed.map((item:any) => {
+        this.totalFixed += parseInt(item.price);
+      })
 
       setTimeout(function(){
         $('#listBillsDiary').DataTable();

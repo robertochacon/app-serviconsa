@@ -6,11 +6,11 @@
 
     <div class="col-lg-10 col-md-10 col-sm-12">
 
-        <div class="container p-5 text-center" *ngIf="action==='list'">
+        <div class="container p-2 text-center" *ngIf="action==='list'">
 
             <div class="mt-2 d-flex justify-content-between align-items-center">
                 <div class="">
-                    <h3>Lista de empleados</h3>
+                    <h3>Lista de empleados ({{listEmployees.length}})</h3>
                 </div>
                 <div class="col-lg-0 text-start">
                     <p class="btn btn-primary mt-1" (click)="updateData=null;action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar empleado</span></p>
@@ -32,7 +32,7 @@
                         <tr *ngFor="let employee of listEmployees" class="text-start">
                             <td>{{employee.name || 'N/A'}}</td>
                             <td>{{employee.address || 'N/A'}}</td>
-                            <td>{{employee.phone || 'N/A'}}</td>
+                            <td>{{employee.phone | mask: '(000) 000-0000' || 'N/A'}}</td>
                             <td>{{employee.created_at | date:'dd/MM/yyyy' || 'N/A'}}</td>
                             <td>
                                 <button class="btn btn-info shadow" (click)="updateData=employee;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -46,7 +46,7 @@
 
         </div>
 
-        <div class="container p-5" *ngIf="action==='register'">
+        <div class="container p-2" *ngIf="action==='register'">
             <div class="row mt-2">
                 <h3 *ngIf="updateData == null">Registro de empleado</h3>
                 <h3 *ngIf="updateData != null">Actualizar empleado</h3>
@@ -71,7 +71,7 @@
                     <h5>Información general</h5>
                     <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
                     <input type="text" [(ngModel)]="address" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un direccion">
-                    <input type="number" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
+                    <input type="text" [(ngModel)]="phone" mask="(000) 000-0000" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
                     <button *ngIf="!loading && updateData == null" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
                     </button>
@@ -109,9 +109,9 @@
             </div>
             <div class="modal-body text-start">
 
-                <button class="btn btn-primary shadow ml-1 text-white" (click)="type_expense='commissions'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar comisión</button>
-                <button class="btn btn-info shadow ml-1 text-white" (click)="type_expense='diet'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar dieta</button>
-                <button class="btn btn-warning shadow ml-1 text-white" (click)="type_expense='fuel'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar combustible</button>
+                <button class="btn btn-success shadow ml-1 text-white" (click)="type_expense='commissions'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar comisión</button>
+                <button class="btn btn-success shadow ml-1 text-white" (click)="type_expense='diet'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar dieta</button>
+                <button class="btn btn-success shadow ml-1 text-white" (click)="type_expense='fuel'" data-bs-toggle="modal" data-bs-target="#addExpense">Agregar combustible</button>
 
                 <div class="row justify-content-space-between mt-3 p-2">
                     <div class="col-6 bg-secondary">
