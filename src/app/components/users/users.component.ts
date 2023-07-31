@@ -16,6 +16,7 @@ export class UsersComponent implements OnInit {
   loading = false;
   loadData = false;
   result = '';
+  updateData:any = null;
   name = '';
   identification = '';
   role = 'admin';
@@ -42,7 +43,6 @@ export class UsersComponent implements OnInit {
       this.listSeller = this.allUsers .filter(item => item.role === 'seller');
 
       setTimeout(function(){
-        $('#listDoctors').DataTable();
         $('#listAdmins').DataTable();
         $('#listSeller').DataTable();
       },100);
@@ -88,6 +88,48 @@ export class UsersComponent implements OnInit {
       });
       this.reset();
       this.getAllUsers();
+    },error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Problemas tecnicos!',
+        text: 'No se pudo completar el registro, favor intente nuevamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.loading = false;
+    })
+
+  }
+
+  setUpdate(){
+    this.name = this.updateData?.name;
+    this.identification = this.updateData?.identification;
+    this.role = this.updateData?.role;
+    // this.password = this.updateData?.password;
+  }
+
+  update(): void {
+
+    this.loading = true;
+    let datos = new FormData();
+    datos.append("name",this.name);
+    datos.append("identification",this.identification);
+    datos.append("role",this.role);
+    datos.append("password",this.password);
+
+    this._users.updateUsers(this.updateData?.id, datos).subscribe((response)=>{
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Actualizado correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.reset();
+      this.getAllUsers();
+      this.action = 'list';
     },error => {
       Swal.fire({
         position: 'center',

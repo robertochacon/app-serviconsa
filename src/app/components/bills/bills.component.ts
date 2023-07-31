@@ -22,7 +22,8 @@ export class BillsComponent implements OnInit {
   description = '';
   type = 'fixed';
   allBills: any[] = [];
-  listBills: any[] = [];
+  listBillsDiary: any[] = [];
+  listBillsFixed: any[] = [];
 
   constructor(private _bills: BillsService) { }
 
@@ -36,12 +37,12 @@ export class BillsComponent implements OnInit {
     this._bills.getAllBills().subscribe((response)=>{
 
       this.allBills  = response.data;
-      this.listBills  = response.data;
-      // this.listBills = this.allBills.filter(item => item.type === 'diary');
-      // this.listAdmins = this.allBills .filter(item => item.role === 'admin');
+      this.listBillsDiary = this.allBills.filter(item => item.type === 'diary');
+      this.listBillsFixed = this.allBills .filter(item => item.type === 'fixed');
 
       setTimeout(function(){
-        $('#listBills').DataTable();
+        $('#listBillsDiary').DataTable();
+        $('#listBillsFixed').DataTable();
       },100);
       this.loading = false;
       

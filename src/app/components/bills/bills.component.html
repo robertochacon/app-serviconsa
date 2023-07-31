@@ -8,37 +8,91 @@
 
         <div class="container p-5 text-center" *ngIf="action==='list'">
 
-            <div class="mt-2 d-flex justify-content-between align-items-center">
-                <div class="">
-                    <h3>Lista de gastos</h3>
-                </div>
-                <div class="col-lg-0 text-start">
-                    <p class="btn btn-primary mt-1" (click)="updateData=null;action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar gasto</span></p>
-                </div>
-            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="seller-tab" data-toggle="tab" href="#diary" role="tab" aria-controls="diary" aria-selected="false">Gastos diarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="admins-tab" data-toggle="tab" href="#fixed" role="tab" aria-controls="fixed" aria-selected="false">Gastos fijos</a>
+                </li>
+            </ul>
 
-            <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
-                <table class="table table-hover responsive" id="listBills" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Descripcion</th>
-                            <th>Total</th>
-                            <th>Fecha</th>
-                            <th>Accion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let bill of listBills" class="text-start">
-                            <td>{{bill.description}}</td>
-                            <td>{{bill.price | currency: 'USD' | lowercase}}</td>
-                            <td>{{bill.created_at | date:'dd/MM/yyyy'}}</td>
-                            <td>
-                                <button class="btn btn-info shadow" (click)="updateData=bill;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
-                                <button class="btn btn-danger shadow ml-1" (click)="delete(bill.id)"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="tab-content" id="myTabContent">
+
+                <div class="tab-pane fade show active" id="diary" role="tabpanel" aria-labelledby="admins-tab">
+
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <div class="">
+                            <h3>Lista de gastos diarios</h3>
+                        </div>
+                        <div class="col-lg-0 text-start">
+                            <p class="btn btn-primary mt-1" (click)="updateData=null;type='diary';action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar gasto</span></p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
+                        <table class="table table-hover responsive" id="listBillsDiary" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Descripcion</th>
+                                    <th>Total</th>
+                                    <th>Fecha</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let bill of listBillsDiary" class="text-start">
+                                    <td>{{bill.description}}</td>
+                                    <td>{{bill.price | currency: 'USD' | lowercase}}</td>
+                                    <td>{{bill.created_at | date:'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <button class="btn btn-info shadow" (click)="updateData=bill;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-danger shadow ml-1" (click)="delete(bill.id)"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+                <div class="tab-pane fade show" id="fixed" role="tabpanel" aria-labelledby="admins-tab">
+
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <div class="">
+                            <h3>Lista de gastos fijos</h3>
+                        </div>
+                        <div class="col-lg-0 text-start">
+                            <p class="btn btn-primary mt-1" (click)="updateData=null;type='fixed';action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar gasto</span></p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="!loading" class="bg-light p-3 border shadow table-responsive">
+                        <table class="table table-hover responsive" id="listBillsFixed" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Descripcion</th>
+                                    <th>Total</th>
+                                    <th>Fecha</th>
+                                    <th>Accion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let bill of listBillsFixed" class="text-start">
+                                    <td>{{bill.description}}</td>
+                                    <td>{{bill.price | currency: 'USD' | lowercase}}</td>
+                                    <td>{{bill.created_at | date:'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <button class="btn btn-info shadow" (click)="updateData=bill;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-danger shadow ml-1" (click)="delete(bill.id)"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
@@ -66,7 +120,7 @@
                         No se pudo completar su registro.
                     </div>
                     <h5>Información general</h5>
-                    <select class="form-control shadow mt-3" [(ngModel)]="type">
+                    <select disabled="true" class="form-control shadow mt-3" [(ngModel)]="type">
                         <option value="diary">Diario</option>
                         <option value="fixed">Fijo</option>
                     </select>

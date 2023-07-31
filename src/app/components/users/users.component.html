@@ -10,7 +10,7 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link" id="admins-tab" data-toggle="tab" href="#admins" role="tab" aria-controls="admins" aria-selected="false">Administradores</a>
+                    <a class="nav-link active" id="admins-tab" data-toggle="tab" href="#admins" role="tab" aria-controls="admins" aria-selected="false">Administradores</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="seller-tab" data-toggle="tab" href="#seller" role="tab" aria-controls="seller" aria-selected="false">Vendedores</a>
@@ -25,7 +25,7 @@
                             <h3>Lista de administradores</h3>
                         </div>
                         <div class="col-lg-0 text-start">
-                            <p class="btn btn-primary mt-1" (click)="role='admin';action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar usuario</span></p>
+                            <p class="btn btn-primary mt-1" (click)="role='admin';updateData=null;action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar usuario</span></p>
                         </div>
                     </div>
 
@@ -49,7 +49,7 @@
                                     <td>{{user.role || 'N/A'}}</td>
                                     <td>{{user.created_at | date:'dd/MM/yyyy' || 'N/A'}}</td>
                                     <td>
-                                        <button class="btn btn-info shadow" (click)="''"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-info shadow" (click)="updateData=user;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
                                         <button class="btn btn-danger shadow ml-1" (click)="delete(user.id)"><i class="fa-solid fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -65,7 +65,7 @@
                             <h3>Lista de vendedores</h3>
                         </div>
                         <div class="col-lg-0 text-start">
-                            <p class="btn btn-primary mt-1" (click)="role='seller';action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar usuario</span></p>
+                            <p class="btn btn-primary mt-1" (click)="role='seller';updateData=null;action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar usuario</span></p>
                         </div>
                     </div>
 
@@ -89,8 +89,7 @@
                                     <td>{{user.role}}</td>
                                     <td>{{user.created_at | date:'dd/MM/yyyy'}}</td>
                                     <td>
-                                        <button class="btn btn-info shadow" (click)="''"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button class="btn btn-warning shadow ml-1" (click)="''"><i class="fa-solid fa-eye"></i></button>
+                                        <button class="btn btn-info shadow" (click)="updateData=user;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
                                         <button class="btn btn-danger shadow ml-1" (click)="delete(user.id)"><i class="fa-solid fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -105,7 +104,8 @@
 
         <div class="container p-5" *ngIf="action==='register'">
             <div class="row mt-2">
-                <h3>Registro de usuario</h3>
+                <h3 *ngIf="updateData == null">Registro de usuario</h3>
+                <h3 *ngIf="updateData != null">Actualizar usuario</h3>
                 <div class="col-6 text-start">
                     <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
                 </div>
@@ -131,9 +131,12 @@
                     </select>
                     <input type="text" [(ngModel)]="identification" class="form-control shadow mt-3" maxLength="11" placeholder="Digite una identificacion">
                     <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
-                    <input type="text" [(ngModel)]="password" class="form-control shadow mt-3" minlength="6" maxLength="50" placeholder="Digite una clave"> La clave debe tener al menos 6 caracteres
-                    <button *ngIf="!loading" [disabled]="name==='' || identification===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                    <input type="text" *ngIf="updateData == null" [(ngModel)]="password" class="form-control shadow mt-3" minlength="6" maxLength="50" placeholder="Digite una clave"> La clave debe tener al menos 6 caracteres
+                    <button *ngIf="!loading && updateData == null" [disabled]="name==='' || identification===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
+                    </button>
+                    <button *ngIf="!loading && updateData != null" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="update()">
+                        Actualizar
                     </button>
                     <button *ngIf="loading" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
