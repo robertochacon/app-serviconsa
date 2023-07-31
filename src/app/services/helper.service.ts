@@ -11,7 +11,7 @@ export class HelperService {
 
   constructor() {
     if(this.enviroment == 'prod'){
-      this.url = 'https://services.laboratorioclinicorodriguez.com';
+      this.url = 'https://api-serviconsa.varaturno.online';
     }else if(this.enviroment == 'dev'){
       this.url = 'http://127.0.0.1:8000';
     }

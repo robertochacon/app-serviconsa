@@ -24,6 +24,11 @@ export class SuppliersService {
     return this.http.post(url, json);
   }
 
+  updateSuppliers(id: number, json: any): Observable<any>{
+    const url = this.url+'/'+id;
+    return this.http.post(url, json);
+  }
+
   deleteSuppliers(id: number): Observable<any>{
     const url = this.url+'/'+id;
     return this.http.delete(url);

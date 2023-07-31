@@ -26,7 +26,7 @@ export class InvoiceQuoteService {
 
   updateInvoiceQuote(id: number, json: any): Observable<any>{
     const url = this.url+'/'+id;
-    return this.http.put(url, json);
+    return this.http.post(url, json);
   }
 
   deleteInvoiceQuote(id: number): Observable<any>{

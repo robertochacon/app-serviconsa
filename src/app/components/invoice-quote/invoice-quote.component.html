@@ -1,6 +1,6 @@
 <!-- <app-navbarinto></app-navbarinto> -->
 
-<div class="row justify-content-center without-borders">
+<div class="row justify-content-center without-borders p-0 m-0">
 
     <app-submenu class="no-print" [page]="'invoice-quote'"></app-submenu>
 
@@ -274,13 +274,13 @@
                         <h5><b>Observación:</b>
                             <hr>
                         </h5>
-                        <h6>{{ details?.observation }}</h6>
+                        <h6>{{ details?.observation || 'N/A' }}</h6>
                     </div>
                     <div class="col-5">
                         <h5><b>Terminos:</b>
                             <hr>
                         </h5>
-                        <h6>{{ details?.terms }}</h6>
+                        <h6>{{ details?.terms || 'N/A' }}</h6>
                     </div>
                 </div>
 
@@ -299,7 +299,7 @@
 
     <div class="row justify-content-space-between">
         <div class="col-3">
-            <img class="mb-3" src="./assets/img/logo.png" width="200" alt="">
+            <img class="mb-3" src="./assets/img/logo.png" width="200" alt="" style="border-radius:5px 5px;">
         </div>
         <div class="col-5 text-center">
             <h1>SERVICONSA</h1>

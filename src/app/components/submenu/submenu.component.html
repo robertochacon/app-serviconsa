@@ -1,67 +1,62 @@
-<div class="col-lg-12 col-md-12 col-sm-12 text-center without-borders bg- shadow" style="background: url('../../../assets/img/fondo.png');border-top:5px solid black;border-bottom:5px solid black;">
-    <div class="col-12 d-flex justify-content-around align-items-center">
-
-        <div>
-            <a routerLink="/" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/logo.png" class="mt-1 mb-1" width="60px" alt="">
+<!-- <div>
+            <a routerLink="/" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+                <img src="./assets/img/logo.png" class="mt-1 mb-1" width="50px" alt="">
             </a>
-        </div>
+        </div> -->
 
-        <div>
-            <a routerLink="/dashboard" style="text-decoration: none;cursor: pointer;" class="p-2" *ngIf="role==='admin'">
-                <img src="./assets/img/home.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Inicio</h5>
-            </a>
+<div class="menu shadow without-borders">
+    <a routerLink="/dashboard" style="text-decoration: none;cursor: pointer;" class="p-2 text-center" *ngIf="role==='admin'">
+        <img src="./assets/img/home.png" class="mt-1 mb-1" width="50px" alt=""><br>
+        <h5 class="text-dark">Inicio</h5>
+    </a>
 
-            <a routerLink="/invoice_quote" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/invoice_quote.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Factura y cotizacion</h5>
-            </a>
+    <a routerLink="/invoice_quote" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+        <img src="./assets/img/invoice_quote.png" class="mt-1 mb-1" width="50px" alt=""><br>
+        <h5 class="text-dark">Factura y cotizacion</h5>
+    </a>
 
-            <a routerLink="/services" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/services.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Servicios</h5>
-            </a>
+    <a routerLink="/services" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+        <img src="./assets/img/services.png" class="mt-1 mb-1" width="50px" alt=""><br>
+        <h5 class="text-dark">Servicios</h5>
+    </a>
 
-            <a routerLink="/employees" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/employees.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Empleados</h5>
-            </a>
+    <a routerLink="/employees" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+        <img src="./assets/img/employees.png" class="mt-1 mb-1" width="50px" alt=""><br>
+        <h5 class="text-dark">Empleados</h5>
+    </a>
 
-            <a routerLink="/equipment_rental" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/equipment.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Renta de equipos</h5>
-            </a>
+    <a routerLink="/equipment_rental" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+        <img src="./assets/img/equipment.png" class="mt-1 mb-1" width="50px" alt=""><br>
+        <h5 class="text-dark">Renta de equipos</h5>
+    </a>
 
-            <a routerLink="/suppliers" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/suppliers.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Suplidores</h5>
-            </a>
+    <a routerLink="/suppliers" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+        <img src="./assets/img/suppliers.png" class="mt-1 mb-1" width="50px" alt=""><br>
+        <h5 class="text-dark">Suplidores</h5>
+    </a>
 
-            <a routerLink="/bills" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/bills.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Gastos</h5>
-            </a>
+    <a routerLink="/bills" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+        <img src="./assets/img/bills.png" class="mt-1 mb-1" width="50px" alt=""><br>
+        <h5 class="text-dark">Gastos</h5>
+    </a>
 
-            <a routerLink="/users" style="text-decoration: none;cursor: pointer;" class="p-2" *ngIf="role==='admin'">
-                <img src="./assets/img/users.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Usuarios</h5>
-            </a>
+    <a routerLink="/users" style="text-decoration: none;cursor: pointer;" class="p-2 text-center" *ngIf="role==='admin'">
+        <img src="./assets/img/users.png" class="mt-1 mb-1" width="50px" alt=""><br>
+        <h5 class="text-dark">Usuarios</h5>
+    </a>
 
-            <a style="text-decoration:none;cursor: pointer;" class="p-2" data-bs-toggle="modal" data-bs-target="#changePassword">
-                <img src="./assets/img/settings.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Configuracion</h5>
-            </a>
-        </div>
+    <a style="text-decoration:none;cursor: pointer;" class="p-2 text-center" data-bs-toggle="modal" data-bs-target="#changePassword">
+        <img src="./assets/img/settings.png" class="mt-1 mb-1" width="50px" alt=""><br>
+        <h5 class="text-dark">Configuracion</h5>
+    </a>
 
-        <div>
-            <a (click)="salir()" style="text-decoration: none;cursor: pointer;" class="p-2">
-                <img src="./assets/img/off.png" class="mt-1 mb-1" width="60px" alt=""><br>
-                <h5 class="text-dark">Salir</h5>
-            </a>
-        </div>
-
+    <div>
+        <a (click)="salir()" style="text-decoration: none;cursor: pointer;" class="p-2 text-center">
+            <img src="./assets/img/off.png" class="mt-1 mb-1" width="50px" alt=""><br>
+            <h5 class="text-dark">Salir</h5>
+        </a>
     </div>
+
 </div>
 
 <app-modal-password></app-modal-password>

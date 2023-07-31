@@ -13,7 +13,7 @@
                     <h3>Lista de suplidores</h3>
                 </div>
                 <div class="col-lg-0 text-start">
-                    <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar suplidor</span></p>
+                    <p class="btn btn-primary mt-1" (click)="updateData=null;action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar suplidor</span></p>
                 </div>
             </div>
 
@@ -29,13 +29,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let bill of listSuppliers" class="text-start">
-                            <td>{{bill.name}}</td>
-                            <td>{{bill.direction}}</td>
-                            <td>{{bill.phone}}</td>
-                            <td>{{bill.created_at | date:'dd/MM/yyyy'}}</td>
+                        <tr *ngFor="let supplier of listSuppliers" class="text-start">
+                            <td>{{supplier.name || 'N/A'}}</td>
+                            <td>{{supplier.direction || 'N/A'}}</td>
+                            <td>{{supplier.phone || 'N/A'}}</td>
+                            <td>{{supplier.created_at | date:'dd/MM/yyyy' || 'N/A'}}</td>
                             <td>
-                                <button class="btn btn-danger shadow ml-1" (click)="delete(bill.id)"><i class="fa-solid fa-trash"></i></button>
+                                <button class="btn btn-info shadow" (click)="updateData=supplier;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="btn btn-danger shadow ml-1" (click)="delete(supplier.id)"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -46,7 +47,8 @@
 
         <div class="container p-5" *ngIf="action==='register'">
             <div class="row mt-2">
-                <h3>Registro de suplidor</h3>
+                <h3 *ngIf="updateData == null">Registro de suplidor</h3>
+                <h3 *ngIf="updateData != null">Actualizar suplidor</h3>
                 <div class="col-6 text-start">
                     <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
                 </div>
@@ -69,8 +71,11 @@
                     <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
                     <input type="text" [(ngModel)]="direction" class="form-control shadow mt-3" maxLength="50" placeholder="Digite una direccion">
                     <input type="text" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
-                    <button *ngIf="!loading" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                    <button *ngIf="!loading && updateData == null" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
+                    </button>
+                    <button *ngIf="!loading && updateData != null" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="update()">
+                        Actualizar
                     </button>
                     <button *ngIf="loading" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

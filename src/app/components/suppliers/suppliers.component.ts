@@ -16,6 +16,7 @@ export class SuppliersComponent implements OnInit {
   loading = false;
   loadData = false;
   result = '';
+  updateData:any = null;
   name = '';
   direction = '';
   phone = '';
@@ -77,6 +78,46 @@ export class SuppliersComponent implements OnInit {
         position: 'center',
         icon: 'success',
         title: 'Guardado correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.reset();
+      this.getAllSuppliers();
+      this.action = 'list';
+    },error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Problemas tecnicos!',
+        text: 'No se pudo completar el registro, favor intente nuevamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.loading = false;
+    })
+
+  }
+
+  setUpdate(){
+    this.name = this.updateData?.name;
+    this.direction = this.updateData?.direction;
+    this.phone = this.updateData?.phone;
+  }
+
+  update(): void {
+
+    this.loading = true;
+    let datos = new FormData();
+    datos.append("name",this.name);
+    datos.append("direction",this.direction);
+    datos.append("phone",this.phone);
+
+    this._suppliers.updateSuppliers(this.updateData?.id, datos).subscribe((response)=>{
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Actualizado correctamente!',
         showConfirmButton: false,
         timer: 2000
       });

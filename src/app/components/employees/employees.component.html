@@ -13,7 +13,7 @@
                     <h3>Lista de empleados</h3>
                 </div>
                 <div class="col-lg-0 text-start">
-                    <p class="btn btn-primary mt-1" (click)="action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar empleado</span></p>
+                    <p class="btn btn-primary mt-1" (click)="updateData=null;action='register'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar empleado</span></p>
                 </div>
             </div>
 
@@ -30,11 +30,12 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let employee of listEmployees" class="text-start">
-                            <td>{{employee.name}}</td>
-                            <td>{{employee.address}}</td>
-                            <td>{{employee.phone}}</td>
-                            <td>{{employee.created_at | date:'dd/MM/yyyy'}}</td>
+                            <td>{{employee.name || 'N/A'}}</td>
+                            <td>{{employee.address || 'N/A'}}</td>
+                            <td>{{employee.phone || 'N/A'}}</td>
+                            <td>{{employee.created_at | date:'dd/MM/yyyy' || 'N/A'}}</td>
                             <td>
+                                <button class="btn btn-info shadow" (click)="updateData=employee;setUpdate();action='register'"><i class="fa-solid fa-pen-to-square"></i></button>
                                 <button class="btn btn-warning shadow ml-1" (click)="details=employee;calculaTotal()" data-bs-toggle="modal" data-bs-target="#details"><i class="fa-solid fa-eye"></i></button>
                                 <button class="btn btn-danger shadow ml-1" (click)="delete(employee.id)"><i class="fa-solid fa-trash"></i></button>
                             </td>
@@ -47,7 +48,8 @@
 
         <div class="container p-5" *ngIf="action==='register'">
             <div class="row mt-2">
-                <h3>Registro de empleado</h3>
+                <h3 *ngIf="updateData == null">Registro de empleado</h3>
+                <h3 *ngIf="updateData != null">Actualizar empleado</h3>
                 <div class="col-6 text-start">
                     <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
                 </div>
@@ -70,8 +72,11 @@
                     <input type="text" [(ngModel)]="name" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un nombre">
                     <input type="text" [(ngModel)]="address" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un direccion">
                     <input type="number" [(ngModel)]="phone" class="form-control shadow mt-3" maxLength="50" placeholder="Digite un telefono">
-                    <button *ngIf="!loading" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
+                    <button *ngIf="!loading && updateData == null" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         Registrar
+                    </button>
+                    <button *ngIf="!loading && updateData != null" [disabled]="name===''" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="update()">
+                        Actualizar
                     </button>
                     <button *ngIf="loading" class="btn btn-success btn-block btn-lg mt-3 mb-3 shadow" (click)="save()">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

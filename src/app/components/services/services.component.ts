@@ -16,6 +16,7 @@ export class ServicesComponent implements OnInit {
   loading = false;
   loadData = false;
   result = '';
+  updateData:any = null;
   description = '';
   name = '';
   price = '';
@@ -72,6 +73,46 @@ export class ServicesComponent implements OnInit {
         position: 'center',
         icon: 'success',
         title: 'Guardado correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.reset();
+      this.getAllServices();
+      this.action = 'list';
+    },error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Problemas tecnicos!',
+        text: 'No se pudo completar el registro, favor intente nuevamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.loading = false;
+    })
+
+  }
+
+  setUpdate(){
+    this.name = this.updateData?.name;
+    this.description = this.updateData?.description;
+    this.price = this.updateData?.price;
+  }
+
+  update(): void {
+
+    this.loading = true;
+    let datos = new FormData();
+    datos.append("name",this.name);
+    datos.append("description",this.description);
+    datos.append("price",this.price);
+
+    this._services.updateServices(this.updateData?.id, datos).subscribe((response)=>{
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Actualizado correctamente!',
         showConfirmButton: false,
         timer: 2000
       });

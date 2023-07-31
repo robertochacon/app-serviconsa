@@ -20,6 +20,7 @@ export class EmployeesComponent implements OnInit {
   name = '';
   phone = '';
   details:any;
+  updateData:any;
   description_expense='';
   commissions:any=0;
   diet:any=0;
@@ -133,10 +134,50 @@ export class EmployeesComponent implements OnInit {
     })
 
   }
+
+  setUpdate(){
+    this.name = this.updateData?.name;
+    this.address = this.updateData?.address;
+    this.phone = this.updateData?.phone;
+  }
+
+  update(): void {
+
+    this.loading = true;
+    let datos = new FormData();
+    datos.append("name",this.name);
+    datos.append("address",this.address);
+    datos.append("phone",this.phone);
+
+    this._employees.updateEmployees(this.updateData?.id, datos).subscribe((response)=>{
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Actualizado correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.reset();
+      this.getAllEmployees();
+      this.action = 'list';
+    },error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Problemas tecnicos!',
+        text: 'No se pudo completar el registro, favor intente nuevamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.loading = false;
+    })
+
+  }
   
   delete(id: any): void {
     Swal.fire({
-      title: 'Deseas eliminar este empleado?',
+      title: 'Deseas eliminar este servicio?',
       // text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,

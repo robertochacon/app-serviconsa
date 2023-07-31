@@ -24,6 +24,11 @@ export class ServicesService {
     return this.http.post(url, json);
   }
 
+  updateServices(id: number, json: any): Observable<any>{
+    const url = this.url+'/'+id;
+    return this.http.post(url, json);
+  }
+
   deleteServices(id: number): Observable<any>{
     const url = this.url+'/'+id;
     return this.http.delete(url);

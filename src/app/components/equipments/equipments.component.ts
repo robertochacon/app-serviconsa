@@ -16,6 +16,7 @@ export class EquipmentsComponent implements OnInit {
   loading = false;
   loadData = false;
   result = '';
+  updateData:any = null;
   price = '';
   name = '';
   provider = '';
@@ -76,6 +77,48 @@ export class EquipmentsComponent implements OnInit {
         position: 'center',
         icon: 'success',
         title: 'Guardado correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.reset();
+      this.getAllEquipmentRental();
+      this.action = 'list';
+    },error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Problemas tecnicos!',
+        text: 'No se pudo completar el registro, favor intente nuevamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.loading = false;
+    })
+
+  }
+
+  setUpdate(){
+    this.name = this.updateData?.name;
+    this.provider = this.updateData?.provider;
+    this.price = this.updateData?.price;
+    this.phone = this.updateData?.phone;
+  }
+
+  update(): void {
+
+    this.loading = true;
+    let datos = new FormData();
+    datos.append("name",this.name);
+    datos.append("provider",this.provider);
+    datos.append("price",this.price);
+    datos.append("phone",this.phone);
+
+    this._equipment_rental.updateEquipmentRental(this.updateData?.id, datos).subscribe((response)=>{
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Actualizado correctamente!',
         showConfirmButton: false,
         timer: 2000
       });

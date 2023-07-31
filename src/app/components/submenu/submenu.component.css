@@ -26,3 +26,39 @@
 .btns:active {
     font-size: 30px;
 }
+
+.menu {
+    margin: auto;
+    border-radius: 10px 10px;
+    /* position: fixed; */
+    width: 96%;
+    top: 20px;
+    bottom: 20px;
+    right: 2%;
+    left: 2%;
+    overflow-x: scroll;
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    border-bottom: 3px solid #fd5237;
+    background: url('../../../assets/img/fondo.png');
+}
+
+a {
+    display: block;
+}
+
+@media screen and (max-width: 800px) {
+    .menu {
+        border-radius: 0px 0px;
+        width: 100%;
+        bottom: 0px;
+        right: 0%;
+        left: 0%;
+        justify-content: start;
+    }
+}

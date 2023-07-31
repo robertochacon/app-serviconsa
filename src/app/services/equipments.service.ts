@@ -24,6 +24,11 @@ export class EquipmentsService {
     return this.http.post(url, json);
   }
 
+  updateEquipmentRental(id: number, json: any): Observable<any>{
+    const url = this.url+'/'+id;
+    return this.http.post(url, json);
+  }
+
   deleteEquipmentRental(id: number): Observable<any>{
     const url = this.url+'/'+id;
     return this.http.delete(url);

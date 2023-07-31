@@ -31,6 +31,11 @@ export class EmployeesService {
     return this.http.delete(url);
   }
 
+  updateEmployees(id: number, json: any): Observable<any>{
+    const url = this.url+'/'+id;
+    return this.http.post(url, json);
+  }
+
   //-----------------expense--------------------
   setEmployeesExpense(json: any): Observable<any>{
     const url = this.url_expense;

@@ -17,6 +17,7 @@ export class BillsComponent implements OnInit {
   loading = false;
   loadData = false;
   result = '';
+  updateData:any = null;
   price = '';
   description = '';
   type = 'fixed';
@@ -60,7 +61,7 @@ export class BillsComponent implements OnInit {
   reset(){
     this.price = '';
     this.description = '';
-    this.type = '';
+    this.type = 'fixed';
   }
   
   save(): void {
@@ -78,6 +79,46 @@ export class BillsComponent implements OnInit {
         position: 'center',
         icon: 'success',
         title: 'Guardado correctamente!',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.reset();
+      this.getAllBills();
+      this.action = 'list';
+    },error => {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Problemas tecnicos!',
+        text: 'No se pudo completar el registro, favor intente nuevamente.',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      this.loading = false;
+    })
+
+  }
+
+  setUpdate(){
+    this.description = this.updateData?.description;
+    this.price = this.updateData?.price;
+    this.type = this.updateData?.type;
+  }
+
+  update(): void {
+
+    this.loading = true;
+    let datos = new FormData();
+    datos.append("description",this.description);
+    datos.append("price",this.price);
+    datos.append("type",this.type);
+
+    this._bills.updateBills(this.updateData?.id, datos).subscribe((response)=>{
+      this.loading = false;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Actualizado correctamente!',
         showConfirmButton: false,
         timer: 2000
       });
