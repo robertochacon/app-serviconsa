@@ -85,7 +85,8 @@ export class InvoiceQuoteComponent implements OnInit {
 
   reloadDataTable(){
     setTimeout(function(){
-      $('#listInvoiceQuote').DataTable();
+      $('#listInvoices').DataTable();
+      $('#listQuotes').DataTable();
     },100);
   }
 
@@ -145,6 +146,7 @@ export class InvoiceQuoteComponent implements OnInit {
     this.observation = this.updateData?.observation;
     this.terms = this.updateData?.terms;
     this.total = this.updateData?.total;
+    this.totalpartial = this.updateData?.total;
     this.listServicesSelected = this.updateData?.items;
     console.log(this.listServicesSelected);
     
@@ -161,7 +163,7 @@ export class InvoiceQuoteComponent implements OnInit {
     datos.append("observation",this.observation);
     datos.append("terms",this.terms);
     datos.append("total",this.total);
-    datos.append("items", JSON.stringify(this.listServicesSelected));
+    // datos.append("items", JSON.stringify(this.listServicesSelected));
 
     this._invoice_quote.updateInvoiceQuote(this.updateData?.id, datos).subscribe((response)=>{
       this.loading = false;
@@ -173,7 +175,7 @@ export class InvoiceQuoteComponent implements OnInit {
         timer: 2000
       });
       this.reset();
-      this.getAllServices();
+      this.getAllInvoiceQuote();
       this.action = 'list';
     },error => {
       Swal.fire({
