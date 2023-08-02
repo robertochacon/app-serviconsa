@@ -58,6 +58,10 @@
                         </table>
                     </div>
 
+                    <div *ngIf="loading" class="spinner-border text-secondary mt-5" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+
                 </div>
                 <div class="tab-pane fade" id="seller" role="tabpanel" aria-labelledby="seller-tab">
 
@@ -156,7 +160,7 @@
                     <label>Cliente</label>
                     <input type="text" [(ngModel)]="client" class="form-control shadow" maxLength="50" placeholder="Digite un nombre de cliente">
                     <input type="text" disabled="true" [(ngModel)]="attended" class="form-control shadow mt-3" maxLength="50" placeholder="Atendido por">
-                    <div>
+                    <div class="bg-light p-2 mt-2 border shadow table-responsive">
                         <table class="table table-hover responsive mt-3" id="listServices" style="width:100%">
                             <thead class="bg-secondary text-white">
                                 <tr>

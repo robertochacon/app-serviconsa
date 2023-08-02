@@ -12,8 +12,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class LoginComponent implements OnInit {
 
   loginError = false;
-  identification = "1234";
-  password = "admin";
+  identification = "";
+  password = "";
   loading = false;
   
   constructor(private _authentication: AuthenticationService, private router: Router) { }

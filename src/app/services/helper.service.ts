@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 export class HelperService {
 
   url = '';
-  enviroment = 'dev';
+  enviroment = 'prod';
 
   constructor() {
     if(this.enviroment == 'prod'){
