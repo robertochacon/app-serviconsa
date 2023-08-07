@@ -135,7 +135,7 @@ export class ServicesComponent implements OnInit {
   
   delete(id: any): void {
     Swal.fire({
-      title: 'Deseas eliminar este empleado?',
+      title: 'Deseas eliminar este servicio?',
       // text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
