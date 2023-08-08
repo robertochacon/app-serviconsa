@@ -241,7 +241,10 @@
 
                 <div class="row justify-content-space-between mt-3">
                     <div class="col-12">
-                        <h5 class="text-white bg-primary p-2"><b>Cliente:</b> {{ details?.client }}</h5>
+                        <h5 class=" p-1"><b>Cliente:</b> {{ details?.client }}</h5>
+                    </div>
+                    <div class="col-12">
+                        <h5 class=" p-1"><b>Vendedor:</b> {{ details?.attended }}</h5>
                     </div>
                 </div>
 
@@ -306,15 +309,16 @@
 <div id="print">
 
     <div class="row justify-content-space-between">
-        <div class="col-3">
+        <div class="col-4">
             <img class="mb-3" src="./assets/img/logo.png" width="200" alt="" style="border-radius:5px 5px;">
         </div>
-        <div class="col-5 text-center">
+        <div class="col-4 text-start">
             <h1>SERVICONSA</h1>
-            <h5>Servicios de Concretos Santamaria</h5>
-            <h5>C/ Central #6, Sector Libertad</h5>
-            <h5>Villa Altagracia, R.D.</h5>
-            <h5>Tel.: 849-851-7880</h5>
+            <h6>Servicios de Concretos Santamaria</h6>
+            <h6>C/ Central #6, Sector Libertad</h6>
+            <h6>Villa Altagracia, R.D.</h6>
+            <h6>Tel.: 849-851-7880</h6>
+            <h6>Representante de ventas: Angel Santamaria Herrera</h6>
         </div>
         <div class="col-4 text-end">
             <h5 *ngIf="details?.type=='quote'">PRESUPUESTO Y O COTIZACION</h5>
@@ -326,11 +330,15 @@
     <hr>
     <div class="row justify-content-space-between mt-3">
         <div class="col-12">
-            <h5 class=" p-2"><b>Cliente:</b> {{ details?.client }}</h5>
+            <h5 class=" p-1"><b>Cliente:</b> {{ details?.client }}</h5>
+        </div>
+        <hr>
+        <div class="col-12">
+            <h5 class=" p-1"><b>Vendedor:</b> {{ details?.attended }}</h5>
         </div>
     </div>
     <hr>
-    <table class="table table-striped table-hover responsive mt-3" id="listInvoices" style="width:100%">
+    <table class="table table-striped table-hover responsive" id="listInvoices" style="width:100%">
         <thead class="">
             <tr>
                 <th>Nombre</th>
