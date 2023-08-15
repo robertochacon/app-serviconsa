@@ -92,11 +92,14 @@ export class InvoiceQuoteComponent implements OnInit {
 
   reset(){
     this.client = '';
-    this.attended = '';
-    this.taxes = '';
-    this.discount = '';
+    // this.attended = '';
+    this.taxes = 0;
+    this.discount = 0;
     this.observation = '';
     this.terms = '';
+    this.total = 0;
+    this.totalpartial = 0;
+    this.listServicesSelected = [];
   }
   
   save(): void {

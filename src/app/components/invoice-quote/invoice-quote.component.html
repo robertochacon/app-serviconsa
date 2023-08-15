@@ -25,7 +25,7 @@
                             <h3>Lista de cotizaciónes ({{listQuotes.length}})</h3>
                         </div>
                         <div class="col-lg-0 text-start">
-                            <p class="btn btn-primary mt-1" (click)="action='register';updateData=null;type='quote'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar de cotización</span></p>
+                            <p class="btn btn-primary mt-1" (click)="reset();action='register';updateData=null;type='quote'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar de cotización</span></p>
                         </div>
                     </div>
 
@@ -70,7 +70,7 @@
                             <h3>Lista de facturas ({{listInvoices.length}})</h3>
                         </div>
                         <div class="col-lg-0 text-start">
-                            <p class="btn btn-primary mt-1" (click)="action='register';updateData=null;type='invoice'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar factura</span></p>
+                            <p class="btn btn-primary mt-1" (click)="reset();action='register';updateData=null;type='invoice'"><i class="fa-solid fa-plus d-lg-none d-md-none d-sm-block"></i><span class="d-none d-lg-block d-md-block"><i class="fa-solid fa-plus"></i> Registrar factura</span></p>
                         </div>
                     </div>
 
@@ -113,7 +113,7 @@
                 <h3 *ngIf="updateData == null">Registro de cotización o factura</h3>
                 <h3 *ngIf="updateData != null">Actualizar cotización o factura</h3>
                 <div class="col-6 text-start">
-                    <p class="btn btn-secondary mt-1" (click)="action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
+                    <p class="btn btn-secondary mt-1" (click)="reset();action='list';reloadDataTable()"><span><i class="fa-solid fa-arrow-left"></i></span></p>
                 </div>
             </div>
             <div class="row justify-content-around allscreen">
